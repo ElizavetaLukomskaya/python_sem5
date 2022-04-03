@@ -1,11 +1,13 @@
 from place import PlaceMaster
-import click
+import typer
+
+app = typer.Typer()
 
 class Error(Exception):
     def __init__(self, text):
         self.txt = text
 
-@click.command()
+@app.command()
 def main():
     x_size = 14
     y_size = 5
@@ -94,4 +96,4 @@ def main():
             move_count += 1
 
 if __name__ == "__main__":
-    main()
+    app()
