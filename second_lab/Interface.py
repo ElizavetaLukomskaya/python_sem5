@@ -48,7 +48,7 @@ class Application(MDApp):
         self.mainlayout.clear_widgets()
         self.workplace()
 
-    def open_table(self, button):
+    # def open_table(self, button):
 
 
 
@@ -68,7 +68,7 @@ class Application(MDApp):
 
     # Initialization of table widgets
     def ini_table_widget(self):
-        place_of_table_and_pages = BoxLayout(orientation='vertical')
+        place_of_table_and_pages = BoxLayout(orientation='vertical')    # area of buttons such as first page and place for info about table
 
         table_widget = GridLayout()
         table_widget.cols = len(self.datatable.columns)  # columns - name of variable for columns in table file
@@ -85,6 +85,10 @@ class Application(MDApp):
         for index in range((self.current_page - 1) * self.records_on_page, self.current_page * self.records_on_page):
             if index < len(self.datatable.records): # records - name of variable for recorded data in table file
                 row_data.append(tuple(self.datatable.records[index].elements))
+
+        print(row_data)
+        table_widget = MDDataTable(column_data=column_data, row_data=row_data)
+
 
         # Next page, last page and other buttons
         pages_buttons = BoxLayout(size_hint_y=0.1)
@@ -126,6 +130,59 @@ class Application(MDApp):
             self.current_page += 1
             self.workplace()
 
+    def buttons_for_work_with_table(self):
+        table_area = BoxLayout(orientation='verticaal')
+
+        table_button = MDFlatButton(text='Table')
+        table_button.bind(on_releaase=self.workplace)
+        table_area.add_widget(table_button)
+
+        save_data_button = MDFlatButton(text='Save')
+        save_data_button.bind(on_releaase=self.save_data)
+        table_area.add_widget(save_data_button)
+
+        add_data_button = MDFlatButton(text='Add data')
+        add_data_button.bind(on_releaase=self.add_data)
+        table_area.add_widget(add_data_button)
+
+        remove_data_button = MDFlatButton(text='Remove data')
+        remove_data_button.bind(on_releaase=self.remove_data)
+        table_area.add_widget(remove_data_button)
+
+        search_data_button = MDFlatButton(text='Search data')
+        search_data_button.bind(on_releaase=self.serch_data)
+        table_area.add_widget(search_data_button)
+
+        change_data_button = MDFlatButton(text='Change data')
+        change_data_button.bind(on_releaase=self.change_data)
+        table_area.add_widget(change_data_button)
+
+        back_button = MDFlatButton(text='Return Back')
+        back_button.bind(on_releaase=self.menu_of_tables)
+        table_area.add_widget(back_button)
+
+        return table_area
+
+    # Add record
+    def add_data(self, obj=None):
+        self.workplace()
+
+        add_data_widget = BoxLayout(size_hint_y=0.1)
+        for column in self.datatable.columns:
+            add_data_widget.add_widget(TextInput(multiline=False, size_hint_y=1, text=''))
+        add_button = MDFlatButton(text='Add')
+        add_button.bind(on_releaase=self.add_record)
+        add_data_widget.add_widget(add_button)
+
+        self.mainlayout.children[0].add_widget(add_data_widget)
+
+    # Remove record
+    def remove_data(self, onj=None):
+        self.workplace()
+
+        remove_data_widget = BoxLayout(size_hint_y=0.1)
+
+
 
 
 
@@ -134,7 +191,7 @@ class Application(MDApp):
         self.title = 'Train Schedule'
         self.theme_cls.theme_style = 'Dark'
 
-        return self.mainwindow
+        return self.mainlayout
 
 
 if __name__ == '__main__':
