@@ -7,7 +7,7 @@ Example: `cd C:\User\pycharmProject\first_lab`
 2. Run the file through the following command:
 `python .\main.py command`
 
-###What commands can you use?
+##What commands can you use?
 + if you want to run the prepared preset and check the program operation
 `preset`
 
