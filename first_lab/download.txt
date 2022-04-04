@@ -1,0 +1,655 @@
+{
+    "Date": "2022-04-04 18:40:41.847926",
+    "Matrix": [
+        {
+            "x_size": 6,
+            "y_size": 6,
+            "rabbit_number": 10,
+            "deer_number": 10,
+            "squirrel_number": 10,
+            "wolf_number": 7,
+            "bear_number": 7,
+            "plant_number": 10
+        }
+    ],
+    "Rabbit": [
+        {
+            "number": 0,
+            "male": false,
+            "coordinates": [
+                5,
+                5,
+                0
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        },
+        {
+            "number": 1,
+            "male": true,
+            "coordinates": [
+                4,
+                0,
+                0
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        },
+        {
+            "number": 2,
+            "male": false,
+            "coordinates": [
+                1,
+                2,
+                0
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        },
+        {
+            "number": 3,
+            "male": true,
+            "coordinates": [
+                2,
+                3,
+                0
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        },
+        {
+            "number": 4,
+            "male": false,
+            "coordinates": [
+                1,
+                1,
+                0
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        },
+        {
+            "number": 5,
+            "male": true,
+            "coordinates": [
+                4,
+                0,
+                1
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        },
+        {
+            "number": 6,
+            "male": false,
+            "coordinates": [
+                5,
+                1,
+                0
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        },
+        {
+            "number": 7,
+            "male": true,
+            "coordinates": [
+                2,
+                0,
+                0
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        },
+        {
+            "number": 8,
+            "male": false,
+            "coordinates": [
+                2,
+                2,
+                0
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        },
+        {
+            "number": 9,
+            "male": true,
+            "coordinates": [
+                0,
+                0,
+                0
+            ],
+            "hp": 200,
+            "food": 60,
+            "age": 0
+        }
+    ],
+    "Deer": [
+        {
+            "number": 0,
+            "male": false,
+            "coordinates": [
+                3,
+                2,
+                0
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        },
+        {
+            "number": 1,
+            "male": true,
+            "coordinates": [
+                0,
+                0,
+                1
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        },
+        {
+            "number": 2,
+            "male": false,
+            "coordinates": [
+                4,
+                0,
+                2
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        },
+        {
+            "number": 3,
+            "male": true,
+            "coordinates": [
+                4,
+                5,
+                0
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        },
+        {
+            "number": 4,
+            "male": false,
+            "coordinates": [
+                1,
+                2,
+                1
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        },
+        {
+            "number": 5,
+            "male": true,
+            "coordinates": [
+                4,
+                5,
+                1
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        },
+        {
+            "number": 6,
+            "male": false,
+            "coordinates": [
+                1,
+                5,
+                0
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        },
+        {
+            "number": 7,
+            "male": true,
+            "coordinates": [
+                2,
+                0,
+                1
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        },
+        {
+            "number": 8,
+            "male": false,
+            "coordinates": [
+                3,
+                3,
+                0
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        },
+        {
+            "number": 9,
+            "male": true,
+            "coordinates": [
+                3,
+                4,
+                0
+            ],
+            "hp": 300,
+            "food": 50,
+            "age": 0
+        }
+    ],
+    "Squirrel": [
+        {
+            "number": 0,
+            "male": false,
+            "coordinates": [
+                0,
+                4,
+                0
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        },
+        {
+            "number": 1,
+            "male": true,
+            "coordinates": [
+                4,
+                3,
+                0
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        },
+        {
+            "number": 2,
+            "male": false,
+            "coordinates": [
+                3,
+                3,
+                1
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        },
+        {
+            "number": 3,
+            "male": true,
+            "coordinates": [
+                1,
+                5,
+                1
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        },
+        {
+            "number": 4,
+            "male": false,
+            "coordinates": [
+                3,
+                4,
+                1
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        },
+        {
+            "number": 5,
+            "male": true,
+            "coordinates": [
+                0,
+                1,
+                0
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        },
+        {
+            "number": 6,
+            "male": false,
+            "coordinates": [
+                5,
+                0,
+                0
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        },
+        {
+            "number": 7,
+            "male": true,
+            "coordinates": [
+                4,
+                2,
+                0
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        },
+        {
+            "number": 8,
+            "male": false,
+            "coordinates": [
+                4,
+                1,
+                0
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        },
+        {
+            "number": 9,
+            "male": true,
+            "coordinates": [
+                2,
+                4,
+                0
+            ],
+            "hp": 150,
+            "food": 40,
+            "age": 0
+        }
+    ],
+    "Wolf": [
+        {
+            "number": 0,
+            "male": false,
+            "coordinates": [
+                4,
+                5,
+                2
+            ],
+            "hp": 300,
+            "food": 75,
+            "age": 0
+        },
+        {
+            "number": 1,
+            "male": true,
+            "coordinates": [
+                2,
+                3,
+                1
+            ],
+            "hp": 300,
+            "food": 75,
+            "age": 0
+        },
+        {
+            "number": 2,
+            "male": false,
+            "coordinates": [
+                5,
+                3,
+                0
+            ],
+            "hp": 300,
+            "food": 75,
+            "age": 0
+        },
+        {
+            "number": 3,
+            "male": true,
+            "coordinates": [
+                1,
+                4,
+                0
+            ],
+            "hp": 300,
+            "food": 75,
+            "age": 0
+        },
+        {
+            "number": 4,
+            "male": false,
+            "coordinates": [
+                5,
+                1,
+                1
+            ],
+            "hp": 300,
+            "food": 75,
+            "age": 0
+        },
+        {
+            "number": 5,
+            "male": true,
+            "coordinates": [
+                5,
+                2,
+                0
+            ],
+            "hp": 300,
+            "food": 75,
+            "age": 0
+        },
+        {
+            "number": 6,
+            "male": false,
+            "coordinates": [
+                5,
+                0,
+                1
+            ],
+            "hp": 300,
+            "food": 75,
+            "age": 0
+        }
+    ],
+    "Bear": [
+        {
+            "number": 0,
+            "male": false,
+            "coordinates": [
+                4,
+                5,
+                3
+            ],
+            "hp": 500,
+            "food": 150,
+            "age": 0
+        },
+        {
+            "number": 1,
+            "male": true,
+            "coordinates": [
+                3,
+                5,
+                0
+            ],
+            "hp": 500,
+            "food": 150,
+            "age": 0
+        },
+        {
+            "number": 2,
+            "male": false,
+            "coordinates": [
+                4,
+                3,
+                1
+            ],
+            "hp": 500,
+            "food": 150,
+            "age": 0
+        },
+        {
+            "number": 3,
+            "male": true,
+            "coordinates": [
+                2,
+                3,
+                2
+            ],
+            "hp": 500,
+            "food": 150,
+            "age": 0
+        },
+        {
+            "number": 4,
+            "male": false,
+            "coordinates": [
+                2,
+                1,
+                0
+            ],
+            "hp": 500,
+            "food": 150,
+            "age": 0
+        },
+        {
+            "number": 5,
+            "male": true,
+            "coordinates": [
+                3,
+                2,
+                1
+            ],
+            "hp": 500,
+            "food": 150,
+            "age": 0
+        },
+        {
+            "number": 6,
+            "male": false,
+            "coordinates": [
+                1,
+                2,
+                2
+            ],
+            "hp": 500,
+            "food": 150,
+            "age": 0
+        }
+    ],
+    "Plant": [
+        {
+            "number": 0,
+            "coordinates": [
+                3,
+                5,
+                1
+            ],
+            "hp": 2,
+            "age": 0
+        },
+        {
+            "number": 1,
+            "coordinates": [
+                5,
+                5,
+                1
+            ],
+            "hp": 2,
+            "age": 0
+        },
+        {
+            "number": 2,
+            "coordinates": [
+                2,
+                0,
+                2
+            ],
+            "hp": 2,
+            "age": 0
+        },
+        {
+            "number": 3,
+            "coordinates": [
+                0,
+                2,
+                0
+            ],
+            "hp": 2,
+            "age": 0
+        },
+        {
+            "number": 4,
+            "coordinates": [
+                2,
+                1,
+                1
+            ],
+            "hp": 2,
+            "age": 0
+        },
+        {
+            "number": 5,
+            "coordinates": [
+                0,
+                0,
+                2
+            ],
+            "hp": 2,
+            "age": 0
+        },
+        {
+            "number": 6,
+            "coordinates": [
+                4,
+                1,
+                1
+            ],
+            "hp": 2,
+            "age": 0
+        },
+        {
+            "number": 7,
+            "coordinates": [
+                4,
+                3,
+                2
+            ],
+            "hp": 2,
+            "age": 0
+        },
+        {
+            "number": 8,
+            "coordinates": [
+                1,
+                1,
+                1
+            ],
+            "hp": 2,
+            "age": 0
+        },
+        {
+            "number": 9,
+            "coordinates": [
+                1,
+                2,
+                3
+            ],
+            "hp": 2,
+            "age": 0
+        }
+    ]
+}

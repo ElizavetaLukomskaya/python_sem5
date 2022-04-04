@@ -1,5 +1,8 @@
 from place import PlaceMaster
+from animals import Rabbit, Deer, Squirrel, Wolf, Bear, Plant
 import typer
+import json
+import datetime
 
 app = typer.Typer()
 
@@ -8,6 +11,199 @@ class Error(Exception):
     def __init__(self, text):
         self.txt = text
 
+
+def save(data):
+    print("Write name of file to save: ")
+    filename = str(input())
+
+    with open(filename, 'w') as outfile:
+        json.dump(data, outfile, indent=4)
+
+@app.command()
+def load(filename):
+    with open(filename) as json_file:
+        data = json.load(json_file)
+        for p in data['Matrix']:
+            x_size = p['x_size']
+            y_size = p['y_size']
+
+        meadow = PlaceMaster(x_size, y_size)
+
+        for p in data['Rabbit']:
+            if p['male'] == True:
+                org_rab_obj = Rabbit('Male')
+            else:
+                org_rab_obj = Rabbit('Female')
+            coordinates = p['coordinates']
+            org_rab_obj.location0 = coordinates[0]
+            org_rab_obj.location1 = coordinates[1]
+            org_rab_obj.location2 = coordinates[2]
+            org_rab_obj.hp = p['hp']
+            org_rab_obj.food = p['food']
+            org_rab_obj.age = p['age']
+            meadow.org_rabbit.append(org_rab_obj)
+
+        for p in data['Deer']:
+            if p['male'] == True:
+                org_deer_obj = Deer('Male')
+            else:
+                org_deer_obj = Deer('Female')
+            coordinates = p['coordinates']
+            org_deer_obj.location0 = coordinates[0]
+            org_deer_obj.location1 = coordinates[1]
+            org_deer_obj.location2 = coordinates[2]
+            org_deer_obj.hp = p['hp']
+            org_deer_obj.food = p['food']
+            org_deer_obj.age = p['age']
+            meadow.org_deer.append(org_deer_obj)
+
+        for p in data['Squirrel']:
+            if p['male'] == True:
+                org_sq_obj = Squirrel('Male')
+            else:
+                org_sq_obj = Squirrel('Female')
+            coordinates = p['coordinates']
+            org_sq_obj.location0 = coordinates[0]
+            org_sq_obj.location1 = coordinates[1]
+            org_sq_obj.location2 = coordinates[2]
+            org_sq_obj.hp = p['hp']
+            org_sq_obj.food = p['food']
+            org_sq_obj.age = p['age']
+            meadow.org_squirrel.append(org_sq_obj)
+
+        for p in data['Wolf']:
+            if p['male'] == True:
+                org_wolf_obj = Wolf('Male')
+            else:
+                org_wolf_obj = Wolf('Female')
+            coordinates = p['coordinates']
+            org_wolf_obj.location0 = coordinates[0]
+            org_wolf_obj.location1 = coordinates[1]
+            org_wolf_obj.location2 = coordinates[2]
+            org_wolf_obj.hp = p['hp']
+            org_wolf_obj.food = p['food']
+            org_wolf_obj.age = p['age']
+            meadow.org_wolf.append(org_wolf_obj)
+
+        for p in data['Bear']:
+            if p['male'] == True:
+                org_b_obj = Bear('Male')
+            else:
+                org_b_obj = Bear('Female')
+            coordinates = p['coordinates']
+            org_b_obj.location0 = coordinates[0]
+            org_b_obj.location1 = coordinates[1]
+            org_b_obj.location2 = coordinates[2]
+            org_b_obj.hp = p['hp']
+            org_b_obj.food = p['food']
+            org_b_obj.age = p['age']
+            meadow.org_bear.append(org_b_obj)
+
+        for p in data['Plant']:
+            org_pl_obj = Plant()
+            coordinates = p['coordinates']
+            org_pl_obj.location0 = coordinates[0]
+            org_pl_obj.location1 = coordinates[1]
+            org_pl_obj.location2 = coordinates[2]
+            org_pl_obj.hp = p['hp']
+            org_pl_obj.age = p['age']
+            meadow.org_plant.append(org_pl_obj)
+
+
+        meadow.update_map()
+        meadow.show()
+        move_count = 0
+
+        while True:
+            print('Move #', move_count)
+            enter = input()
+            if enter == 'exit':
+                exit(0)
+            if enter == 'next':
+                meadow.tick()
+                move_count += 1
+
+def convert_to_data(x_size: int, y_size: int, r, d, s, w, b, p, date):
+
+    data = {}
+    data['Date'] = date
+    data['Matrix'] = []
+    data['Rabbit'] = []
+    data['Deer'] = []
+    data['Squirrel'] = []
+    data['Wolf'] = []
+    data['Bear'] = []
+    data['Plant'] = []
+    data['Matrix'].append({
+        'x_size': x_size,
+        'y_size': y_size,
+        'rabbit_number': len(r),
+        'deer_number': len(d),
+        'squirrel_number': len(s),
+        'wolf_number': len(w),
+        'bear_number': len(b),
+        'plant_number': len(p),
+                      })
+
+    for i in range(len(r)):
+        data['Rabbit'].append({
+            'number': i,
+            'male': r[i].is_male,
+            'coordinates': [r[i].location0, r[i].location1, r[i].location2],
+            'hp': r[i].hp,
+            'food': r[i].food,
+            'age': r[i].age
+    })
+
+    for i in range(len(d)):
+        data['Deer'].append({
+            'number': i,
+            'male': d[i].is_male,
+            'coordinates': [d[i].location0, d[i].location1, d[i].location2],
+            'hp': d[i].hp,
+            'food': d[i].food,
+            'age': d[i].age
+    })
+
+    for i in range(len(s)):
+        data['Squirrel'].append({
+            'number': i,
+            'male': s[i].is_male,
+            'coordinates': [s[i].location0, s[i].location1, s[i].location2],
+            'hp': s[i].hp,
+            'food': s[i].food,
+            'age': s[i].age
+    })
+
+    for i in range(len(w)):
+        data['Wolf'].append({
+            'number': i,
+            'male': w[i].is_male,
+            'coordinates': [w[i].location0, w[i].location1, w[i].location2],
+            'hp': w[i].hp,
+            'food': w[i].food,
+            'age': w[i].age
+    })
+
+    for i in range(len(b)):
+        data['Bear'].append({
+            'number': i,
+            'male': b[i].is_male,
+            'coordinates': [b[i].location0, b[i].location1, b[i].location2],
+            'hp': b[i].hp,
+            'food': b[i].food,
+            'age':b[i].age
+    })
+
+    for i in range(len(p)):
+        data['Plant'].append({
+            'number': i,
+            'coordinates': [p[i].location0, p[i].location1, p[i].location2],
+            'hp': p[i].hp,
+            'age': p[i].age
+    })
+
+    return data
 
 @app.command()
 def file(filename: str):
@@ -37,11 +233,16 @@ def file(filename: str):
     while True:
         print('Move #', move_count)
         enter = input()
+        if enter == 'save':
+            date = str(datetime.datetime.now())
+            save(convert_to_data(x_size, y_size, meadow.org_rabbit, meadow.org_deer, meadow.org_squirrel, meadow.org_wolf, meadow.org_bear, meadow.org_plant, date))
+            exit(0)
         if enter == 'exit':
             exit(0)
         if enter == 'next':
             meadow.tick()
             move_count += 1
+
 
 @app.command()
 def keyboard(x_size: int, y_size: int, r: int, d: int, s: int, w: int, b: int, p: int):
