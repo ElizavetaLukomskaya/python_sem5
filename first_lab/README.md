@@ -2,6 +2,7 @@ INSTRUCTIONS FOR WORKING WITH THIS CLI APPLICATION
 ===================================================
 
 1. Go to the directory where this project is located (in my case ".../first_lab")
+
 Example: `cd C:\User\pycharmProject\first_lab`
 
 2. Run the file through the following command:
@@ -19,7 +20,7 @@ What commands can you use?
 and then the number of living organisms in order of priority: rabbits, deer, squirrels, wolves, bears, plants)
 `keyboard x y r d s w b p`
 
-+if you want to load a previously saved file
++ if you want to load a previously saved file
 `load 'filename'`
 
 3. After the appearance of 'Move #0', the following commands are valid:
