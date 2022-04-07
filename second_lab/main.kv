@@ -1,0 +1,94 @@
+#:import utils kivy.utils
+#:include kv/homescreen.kv
+#:include kv/workscreen.kv
+#:include kv/adddatascreen.kv
+#:include kv/removedatascreen.kv
+#:include kv/searchdatascreen.kv
+#:include kv/changedatascreen.kv
+#:include kv/errorscreen.kv
+
+Screen:
+
+    MDToolbar:
+        id: titlename
+        title: 'Train Schedule'
+        left_action_items: [['menu', lambda x : nav_drawer.set_state('open')]]
+        md_bg_color: app.theme_cls.primary_color
+        elevation: 8
+        pos_hint: {'top': 1, 'left': 1}
+        size_hint: 1, .1
+
+    MDNavigationLayout:
+        ScreenManager:
+            id: screen_manager
+            size_hint: 1, 1
+            pos_hint: {'top': 1, 'left': 1}
+            HomeScreen:
+                name: 'home_screen'
+                id: home_screen
+            WorkScreen:
+                name: 'work_screen'
+                id: work_screen
+            add_data_screen:
+                name: 'add_data_screen'
+                id: add_data_screen
+            remove_data_screen:
+                name: 'remove_data_screen'
+                id: remove_data_screen
+            search_data_screen:
+                name: 'search_data_screen'
+                id: search_data_screen
+            change_data_screen:
+                name: 'change_data_screen'
+                id: change_data_screen
+            error_screen:
+                name: 'error_screen'
+                id: error_screen
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            BoxLayout:
+                orientation: 'vertical'
+                spacing : '8dp'
+                padding : '8dp'
+                ImageButton:
+                    id: profile
+                    source: app.img_source_path
+                    canvas.before:
+                        Color:
+                            rgb: app.theme_cls.primary_color if self.state == 'normal' else utils.get_color_from_hex("#6C5B7B")
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    on_release:
+                        nav_drawer.set_state('closed')
+                        #app.change_screen('profilephoto_screen', direction='right', mode='push')
+                        app.change_screen('error_screen', direction='right', mode='push')
+                MDLabel :
+                    text : 'Profile Picture'
+                    font_style : 'Subtitle1'
+                    size_hint_y : None
+                    height : self.texture_size[1]
+                MDLabel :
+                    text : 'Welcome to My Train Schedule App!'
+                    font_style : 'Caption'
+                    size_hint_y : None
+                    height : self.texture_size[1]
+                ScrollView :
+                    MDList :
+                        OneLineIconListItem :
+                            text : 'Change Theme'
+                            on_release:
+                                #app.show_theme_picker()
+                                app.change_screen('error_screen', direction='right', mode='push')
+                                nav_drawer.set_state('closed')
+                            IconLeftWidget:
+                                icon: 'pencil'
+                        OneLineIconListItem :
+                            text : 'Favourite'
+                            on_release:
+                                #app.go_to_favourite_train()
+                                app.change_screen('error_screen', direction='right', mode='push')
+                                nav_drawer.set_state('closed')
+                            IconLeftWidget:
+                                icon: 'star'

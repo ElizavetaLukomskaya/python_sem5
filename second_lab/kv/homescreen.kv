@@ -1,0 +1,20 @@
+#:import utils kivy.utils
+
+<HomeScreen>:
+    FloatLayout:
+        Button:
+            text: 'Create\n table'
+            pos_hint: {"center_x": .25, "center_y": .6}
+            size_hint_x: .25
+            size_hint_y: .25
+            on_release: app.change_screen('work_screen', direction='right', mode='push')
+        Button:
+            text: 'Open\n table'
+            pos_hint: {"center_x": .7, "center_y": .6}
+            size_hint_x: .25
+            size_hint_y: .25
+        Button:
+            text: 'table_name'
+            pos_hint: {"center_x": .47, "center_y": .3}
+            size_hint_x: .25
+            size_hint_y: .25
