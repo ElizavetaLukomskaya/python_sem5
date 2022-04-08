@@ -1,6 +1,10 @@
-from datetime import date, time, datetime, timedelta
+from datetime import datetime
 import xml.sax
 import xml.dom.minidom
+
+class Error(Exception):
+    def __init__(self, text):
+        self.txt = text
 
 
 class CustomContentHandler(xml.sax.ContentHandler):
@@ -19,7 +23,7 @@ class CustomContentHandler(xml.sax.ContentHandler):
         self.d_f = []
 
     # Handle startElement
-    def startElement(self, tagName, attrs):
+    def startElement(self, tagName, attr):
         if tagName == 'trains':
             print('Trains')
         elif tagName == 'train':
@@ -89,7 +93,6 @@ class CustomContentHandler(xml.sax.ContentHandler):
             sec = int(chars[17:19])
             self.d_f.append(datetime(year, month, day, hour, min, sec))
         if self.isInDatePath:
-            #self.train_base.date_in_path.append(self.train_base.date_finish[self.trainCount - 1] - self.train_base.date_start[self.trainCount - 1])
             print('Date in Path: ' + chars)
 
 
@@ -97,10 +100,6 @@ class CustomContentHandler(xml.sax.ContentHandler):
     def startDocument(self):
         print('About to start!')
         self.trainCount = 0
-
-    '''# Handle endDocument
-    def endDocument(self):
-        print('Finishing up!')'''
 
 
 class TrainBase(object):
@@ -131,8 +130,47 @@ class TrainBase(object):
         self.train_numb.append(t_n)
         self.station_start.append(s_s)
         self.station_finish.append(s_f)
-        self.date_start.append(d_s)
-        self.date_finish.append(d_f)
+        try:
+            self.date_start.append(d_s)
+            self.date_finish.append(d_f)
+            if d_s.year < 2022 or d_f.year < 2022:
+                raise Error('Set to 2022 or later\n')
+            elif d_s.month > 12 or d_f.month > 12 or d_s.month < 1 or d_f.month < 1:
+                raise Error('Set the month from 1 to 12\n')
+            elif (d_s.month == 1 and d_s.day > 31)  or (d_f.month == 1 and d_f.day > 31):
+                raise Error('There are 31 days in January\n')
+            elif (d_s.month == 2 and d_s.year % 4 != 0 and d_s.day > 28) or (d_f.month == 2 and d_f.year % 4 != 0 and d_f.day > 28):
+                raise Error('There are 28 days in February\n')
+            elif (d_s.month == 2 and d_s.year % 4 == 0 and d_s.day > 29) or (d_f.month == 2 and d_f.year % 4 == 0 and d_f.day > 29):
+                raise Error('There are 29 days in February\n')
+            elif (d_s.month == 3 and d_s.day > 31) or (d_f.month == 3 and d_f.day > 31):
+                raise Error('There are 31 days in March\n')
+            elif (d_s.month == 4 and d_s.day > 30) or (d_f.month == 4 and d_f.day > 30):
+                raise Error('There are 30 days in April\n')
+            elif (d_s.month == 5 and d_s.day > 31) or (d_f.month == 5 and d_f.day > 31):
+                raise Error('There are 31 days in May\n')
+            elif (d_s.month == 6 and d_s.day > 30) or (d_f.month == 6 and d_f.day > 30):
+                raise Error('There are 31 days in June\n')
+            elif (d_s.month == 7 and d_s.day > 31) or (d_f.month == 7 and d_f.day > 31):
+                raise Error('There are 31 days in July\n')
+            elif (d_s.month == 8 and d_s.day > 31) or (d_f.month == 8 and d_f.day > 31):
+                raise Error('There are 31 days in August\n')
+            elif (d_s.month == 9 and d_s.day > 30) or (d_f.month == 9 and d_f.day > 30):
+                raise Error('There are 30 days in September\n')
+            elif (d_s.month == 10 and d_s.day > 31) or (d_f.month == 10 and d_f.day > 31):
+                raise Error('There are 31 days in October\n')
+            elif (d_s.month == 11 and d_s.day > 30) or (d_f.month == 11 and d_f.day > 30):
+                raise Error('There are 30 days in November\n')
+            elif (d_s.month == 12 and d_s.day > 31) or (d_f.month == 12 and d_f.day > 31):
+                raise Error('There are 31 days in December\n')
+            elif d_s.day < 1 or d_f.day < 1:
+                raise Error('Invalid field "day"\n')
+            elif d_s.hour < 0 or d_s.hour > 23 or d_f.hour < 0 or d_f.hour > 23 or d_s.minute > 59 or d_f.minute > 59:
+                raise Error('Invalid time\n')
+            elif d_s > d_f:
+                raise Error('Departure time must be earlier than arrival time\n')
+        except Error as er:
+            print(er)
         date = d_f - d_s
         self.date_in_path.append(date)
 
