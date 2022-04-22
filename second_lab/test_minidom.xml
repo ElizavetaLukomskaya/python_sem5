@@ -1,243 +1,115 @@
-<?xml version="1.0" encoding="UTF-8"?>
-   <trains>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0402-11-11 11:11:11</date_finish>
-           <date_in_path>143207 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0403-01-29 11:11:11</date_finish>
-           <date_in_path>143286 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0404-01-29 11:11:11</date_finish>
-           <date_in_path>143651 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0405-01-29 11:11:11</date_finish>
-           <date_in_path>144017 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0406-01-29 11:11:11</date_finish>
-           <date_in_path>144382 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0402-11-11 11:11:11</date_finish>
-           <date_in_path>143207 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0403-01-29 11:11:11</date_finish>
-           <date_in_path>143286 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0404-01-29 11:11:11</date_finish>
-           <date_in_path>143651 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0405-01-29 11:11:11</date_finish>
-           <date_in_path>144017 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0423-01-29 11:11:11</date_finish>
-           <date_in_path>150591 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0402-11-11 11:11:11</date_finish>
-           <date_in_path>143207 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0403-01-29 11:11:11</date_finish>
-           <date_in_path>143286 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0404-01-29 11:11:11</date_finish>
-           <date_in_path>143651 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0405-01-29 11:11:11</date_finish>
-           <date_in_path>144017 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0423-01-29 11:11:11</date_finish>
-           <date_in_path>150591 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0402-11-11 11:11:11</date_finish>
-           <date_in_path>143207 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0403-01-29 11:11:11</date_finish>
-           <date_in_path>143286 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0404-01-29 11:11:11</date_finish>
-           <date_in_path>143651 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0405-01-29 11:11:11</date_finish>
-           <date_in_path>144017 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0423-01-29 11:11:11</date_finish>
-           <date_in_path>150591 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0402-11-11 11:11:11</date_finish>
-           <date_in_path>143207 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0403-01-29 11:11:11</date_finish>
-           <date_in_path>143286 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0404-01-29 11:11:11</date_finish>
-           <date_in_path>143651 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0405-01-29 11:11:11</date_finish>
-           <date_in_path>144017 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>1</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0423-01-29 11:11:11</date_finish>
-           <date_in_path>150591 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>2</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0402-11-11 11:11:11</date_finish>
-           <date_in_path>143207 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>19</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0403-01-29 11:11:11</date_finish>
-           <date_in_path>143286 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>12</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0404-01-29 11:11:11</date_finish>
-           <date_in_path>143651 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>7</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0405-01-29 11:11:11</date_finish>
-           <date_in_path>144017 days, 1:01:01</date_in_path>
-       </train>
-       <train>
-           <number>4</number>
-           <station_start>12</station_start>
-           <station_finish>13</station_finish>
-           <date_start>0010-10-10 10:10:10</date_start>
-           <date_finish>0423-01-29 11:11:11</date_finish>
-           <date_in_path>150591 days, 1:01:01</date_in_path>
-       </train>
-   </trains>
+<?xml version="1.0" encoding="windows-1251"?>
+    <trains>
+        <train>
+            <number>658Б</number>
+            <station_start>Брест</station_start>
+            <station_finish>Полоцк</station_finish>
+            <date_start>2022-04-22 20:29:00</date_start>
+            <date_finish>2022-04-23 10:25:00</date_finish>
+            <date_in_path>13:56:00</date_in_path>
+        </train>
+        <train>
+            <number>6029</number>
+            <station_start>Орша</station_start>
+            <station_finish>Минск</station_finish>
+            <date_start>2022-04-22 00:32:00</date_start>
+            <date_finish>2022-04-22 04:04:00</date_finish>
+            <date_in_path>3:32:00</date_in_path>
+        </train>
+        <train>
+            <number>724Б</number>
+            <station_start>Брест</station_start>
+            <station_finish>Минск</station_finish>
+            <date_start>2022-04-22 00:36:00</date_start>
+            <date_finish>2022-04-22 04:26:00</date_finish>
+            <date_in_path>3:50:00</date_in_path>
+        </train>
+        <train>
+            <number>6252</number>
+            <station_start>Гродно</station_start>
+            <station_finish>Лида</station_finish>
+            <date_start>2022-04-22 04:21:00</date_start>
+            <date_finish>2022-04-22 07:27:00</date_finish>
+            <date_in_path>3:06:00</date_in_path>
+        </train>
+        <train>
+            <number>6004</number>
+            <station_start>Минск</station_start>
+            <station_finish>Борисов</station_finish>
+            <date_start>2022-04-22 04:29:00</date_start>
+            <date_finish>2022-04-22 06:06:00</date_finish>
+            <date_in_path>1:37:00</date_in_path>
+        </train>
+        <train>
+            <number>6803</number>
+            <station_start>Минск</station_start>
+            <station_finish>Барановичи</station_finish>
+            <date_start>2022-04-22 04:31:00</date_start>
+            <date_finish>2022-04-22 06:28:00</date_finish>
+            <date_in_path>1:57:00</date_in_path>
+        </train>
+        <train>
+            <number>637Б</number>
+            <station_start>Гомель</station_start>
+            <station_finish>Минск</station_finish>
+            <date_start>2022-04-22 05:00:00</date_start>
+            <date_finish>2022-04-22 10:05:00</date_finish>
+            <date_in_path>5:05:00</date_in_path>
+        </train>
+        <train>
+            <number>623Б</number>
+            <station_start>Витебск</station_start>
+            <station_finish>Гродно</station_finish>
+            <date_start>2022-04-22 05:19:00</date_start>
+            <date_finish>2022-04-22 16:31:00</date_finish>
+            <date_in_path>11:12:00</date_in_path>
+        </train>
+        <train>
+            <number>6105</number>
+            <station_start>Минск</station_start>
+            <station_finish>Молодечно</station_finish>
+            <date_start>2022-04-22 05:22:00</date_start>
+            <date_finish>2022-04-22 07:08:00</date_finish>
+            <date_in_path>1:46:00</date_in_path>
+        </train>
+        <train>
+            <number>6281</number>
+            <station_start>Барановичи</station_start>
+            <station_finish>Гродно</station_finish>
+            <date_start>2022-04-22 06:01:00</date_start>
+            <date_finish>2022-04-22 10:29:00</date_finish>
+            <date_in_path>4:28:00</date_in_path>
+        </train>
+        <train>
+            <number>6486</number>
+            <station_start>Мозырь</station_start>
+            <station_finish>Калинковичи</station_finish>
+            <date_start>2022-04-22 06:08:00</date_start>
+            <date_finish>2022-04-22 06:30:00</date_finish>
+            <date_in_path>0:22:00</date_in_path>
+        </train>
+        <train>
+            <number>6212</number>
+            <station_start>Лунинец</station_start>
+            <station_finish>Барановичи</station_finish>
+            <date_start>2022-04-22 07:04:00</date_start>
+            <date_finish>2022-04-22 09:40:00</date_finish>
+            <date_in_path>2:36:00</date_in_path>
+        </train>
+        <train>
+            <number>6355</number>
+            <station_start>Лунинец</station_start>
+            <station_finish>Брест</station_finish>
+            <date_start>2022-04-22 09:50:00</date_start>
+            <date_finish>2022-04-22 15:02:00</date_finish>
+            <date_in_path>5:12:00</date_in_path>
+        </train>
+        <train>
+            <number>636Б</number>
+            <station_start>Пинск</station_start>
+            <station_finish>Минск</station_finish>
+            <date_start>2022-04-22 05:13:00</date_start>
+            <date_finish>2022-04-22 09:40:00</date_finish>
+            <date_in_path>4:27:00</date_in_path>
+        </train>
+    </trains>

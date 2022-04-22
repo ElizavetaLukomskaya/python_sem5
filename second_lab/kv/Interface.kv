@@ -1,0 +1,1066 @@
+#:import Factory kivy.factory.Factory
+#:import Window kivy.core.window
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<MyField@MDTextField>
+    size_hint_x: None
+    width: '200'
+    text_color: "000000"
+
+    required: True
+    font_name: 'kv\Montserrat-Light.ttf'
+    helper_text: "Обязательное поле"
+    helper_text_mode: "on_error"
+
+    color_mode: 'custom'
+    line_color_focus: '005fa9'
+
+    multiline: False
+    background_color: (1, 1, 1)
+    background_normal:''
+
+<TooltipCheckBox@ToolTip+CheckBox>
+    tooltip_bg_color: [0/256,95/256,169/256,1]
+<TooltipButton@ToolTip+Button>
+    tooltip_bg_color: [0/256,95/256,169/256,1]
+
+
+
+<AddPopup@Popup>
+    auto_dismiss: False
+    title: 'Добавление рейса'
+    separator_color: (0/256,95/256,169/256,1)
+    size_hint:None,None
+    size:(650,550)
+
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgb: (1,1,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        orientation: "vertical"
+        adaptive_size: True
+        GridLayout:
+            cols:4
+            Label:
+                text: "[color=005fa9]                                                                                                                    Добавление рейса[/color]"
+                markup: True
+                font_size: 20
+                font_name: 'kv\Montserrat-Light.ttf'
+                size_hint: None, None
+                height:40
+                width:40
+                pos_hint: {"center_x": .6}
+
+            Image:
+                source:'kv/logo_bzhd.png'
+
+        GridLayout:
+            cols:2
+            rows:3
+            size_hint_y:None
+            height:50
+            padding:210,0,0,0
+            spacing:10
+
+
+            # добавить номер поезда
+            MyField
+                id: train_numb_input
+                hint_text: 'Номер поезда'
+                max_text_length: 10
+                font_name: 'kv\Montserrat-Light.ttf'
+                on_text: root.set_train_numb(self.text)
+
+                pos_hint: {"center_x": .50}
+            # добавить станцию отправления
+            Label:
+                id:click_label
+            Spinner:
+                id:spinner_id_start
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"Станция отправления"
+                values: root.get_values()
+                size_hint:None,None
+                size:(200,50)
+                on_text:root.set_station_start(spinner_id_start.text)
+                background_color:"005fa9"
+                background_normal:''
+            # добавить станцию отправления
+            Label:
+                id:click_label_too
+            Spinner:
+                id:spinner_id_finish
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"Станция прибытия"
+                values: root.get_values()
+                size_hint:None,None
+                size:(200,50)
+                on_text:root.set_station_finish(spinner_id_finish.text)
+                background_color:"005fa9"
+                background_normal:''
+
+        # добавить время отправления
+        GridLayout:
+            cols:2
+            row:2
+            padding:210,130,0,0
+            MyField:
+                id: start_date_input
+                hint_text: 'Дата и время отправления'
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_date_start(self.text)
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint:None,None
+                size: "40sp", "40sp"
+                on_press: root.choose_start_date()
+                background_color:0,0,0,0
+
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"30sp","30sp"
+
+            #добавить время прибытия
+            MyField:
+                id: finish_date_input
+                hint_text: 'Дата и время прибытия'
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_date_finish(self.text)
+
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint:None,None
+                size: "40sp", "40sp"
+                on_press: root.choose_finish_date()
+                background_color:0,0,0,0
+
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"30sp","30sp"
+        # кнопки
+        GridLayout:
+            cols: 4
+            padding: 90, 100, 0, 0
+            spacing: 10
+            # добавить рейс
+            MDFillRoundFlatButton:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: '12sp'
+                text: '   Добавить рейс в расписание   '
+                on_press: root.record_train_info()
+                md_bg_color: '005fa9'
+                text_color: 'ffffff'
+                pos_hint: {"center_x": .5,"center_y":.5}
+            # вернуть в меню
+            MDFillRoundFlatButton:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: '12sp'
+                text: 'Вернуться в главное меню'
+                on_press: root.dismiss()
+                md_bg_color: '005fa9'
+                text_color: 'ffffff'
+                pos_hint: {"center_x": .5,"center_y":.5}
+
+
+<SearchPopup@Popup>
+    title: 'Найти рейс'
+    auto_dismiss:False
+    separator_color: (0/256,95/256,169/256,1)
+    background_color:'#005fa9'
+    size_hint:None,None
+    size:(650,550)
+
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgb: (1,1,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+
+
+        orientation: "vertical"
+        adaptive_size: True
+
+
+        GridLayout:
+            cols:4
+            rows:2
+            spacing:-10
+            padding: 0,0,0,0
+            Label:
+                text: "[color=005fa9]                                                                                                                                Поиск рейса[/color]"
+                markup: True
+                font_size: 20
+                font_name: 'kv\Montserrat-Light.ttf'
+                size_hint: None, None
+                height:15
+                width:15
+                pos_hint: {"center_x": .5}
+            Image:
+                source:'kv/logo_bzhd.png'
+
+        GridLayout:
+            cols:2
+            size_hint_y:None
+            height:50
+            padding:210,25,0,0
+            spacing:10
+            # по номеру поезда
+            MyField
+                id: train_numb_search
+                hint_text: 'Номер поезда'
+                font_name: 'kv\Montserrat-Light.ttf'
+                on_text: root.set_search_train_numb(self.text)
+
+                pos_hint: {"center_x": .50}
+            TooltipCheckBox:
+                tooltip_text: 'по номеру поезда'
+                group: 'search'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 200
+                on_active: root.set_properties(self, self.active, 'train numb')
+        # по станции
+        GridLayout:
+            cols: 2
+            padding:210,35,0,0
+            spacing:10
+            MyField:
+                id: start_station_search
+                hint_text: 'Станция отправления'
+                on_text: root.set_search_start_station(self.text)
+                pos_hint: {"center_x": .50}
+            TooltipCheckBox:
+                tooltip_text: 'по станции отправления'
+                group: 'search'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 200
+                on_active: root.set_properties(self, self.active, 'start station')
+
+        GridLayout:
+            cols: 2
+            padding:210,25,0,0
+            spacing:10
+            MyField:
+                id: finish_station_search
+                hint_text: 'Станция прибытия'
+                on_text: root.set_search_finish_station(self.text)
+                pos_hint: {"center_x": .50}
+            TooltipCheckBox:
+                tooltip_text: 'по станции прибытия'
+                group: 'search'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 200
+                on_active: root.set_properties(self, self.active, 'finish station')
+        # по дате
+        GridLayout:
+            cols: 5
+            padding:40,15,0,0
+            spacing:5
+            MyField:
+                id: start_date_search
+                hint_text: 'Дата отправления с: '
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_search_start_date(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint: None, None
+                size: "45sp", "45sp"
+                on_press: root.choose_search_start_date()
+                background_color:0,0,0,0
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"20sp","20sp"
+            MyField:
+                id: start_date_search1
+                hint_text: 'по: '
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_search_start_date1(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint: None, None
+                size: "45sp", "45sp"
+                on_press: root.choose_search_start_date1()
+                background_color:0,0,0,0
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"20sp","20sp"
+            TooltipCheckBox:
+                tooltip_text: 'по дате отправления'
+                group: 'search'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 60
+                on_active: root.set_properties_date(self, self.active, 'start time', 'start time1')
+
+
+        GridLayout:
+            cols: 5
+            padding:40,15,0,0
+            spacing:5
+            MyField:
+                id: finish_date_search
+                hint_text: 'Дата прибытия с: '
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_search_finish_date(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint: None, None
+                size: "45sp", "45sp"
+                on_press: root.choose_search_finish_date()
+                background_color:0,0,0,0
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"20sp","20sp"
+            MyField:
+                id: finish_date_search1
+                hint_text: 'по: '
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_search_finish_date1(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint: None, None
+                size: "45sp", "45sp"
+                on_press: root.choose_search_finish_date1()
+                background_color:0,0,0,0
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"20sp","20sp"
+            TooltipCheckBox:
+                tooltip_text: 'по дате прибытия'
+                group: 'search'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 60
+                on_active: root.set_properties_date(self, self.active, 'finish time', 'finish time1')
+
+
+        GridLayout:
+            cols: 5
+            padding:40,5,0,0
+            spacing:55
+            MyField:
+                id: date_in_path_search
+                hint_text: 'Время в пути от: '
+                helper_text: '** h(часы), ** m(минуты)'
+                helper_text_mode: 'on_focus'
+                max_text_length: 10
+                on_text: root.set_search_date_in_path(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            MyField:
+                id: date_in_path_search1
+                hint_text: 'до: '
+                helper_text: '** h(часы), ** m(минуты)'
+                helper_text_mode: 'on_focus'
+                max_text_length: 10
+                on_text: root.set_search_date_in_path1(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipCheckBox:
+                tooltip_text: 'по времени в пути'
+                group: 'search'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 60
+                on_active: root.set_properties_date(self, self.active, 'time in path', 'time in path1')
+
+        # кнопки
+        GridLayout:
+            cols: 4
+            padding: 105, 10, 0, 0
+            spacing: 10
+            MDFillRoundFlatButton:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: '14sp'
+                text: '       Поиск рейса          '
+                on_press: root.search()
+                md_bg_color: '005fa9'
+                text_color: 'ffffff'
+                pos_hint: {"center_x": .5,"center_y":.5}
+
+            MDFillRoundFlatButton:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: '14sp'
+                text: 'Вернуться в главное меню'
+                on_press: root.dismiss()
+                md_bg_color: '005fa9'
+                text_color: 'ffffff'
+                pos_hint: {"center_x": .5,"center_y":.5}
+
+
+<DeletePopup@Popup>
+    title: 'Удаление рейса'
+    auto_dismiss:False
+    separator_color: (0/256,95/256,169/256,1)
+    background_color:'#005fa9'
+    size_hint:None,None
+    size:(650,550)
+
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgb: (1,1,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        orientation: "vertical"
+        adaptive_size: True
+        GridLayout:
+            cols:4
+            rows:2
+            spacing:-10
+            padding: 0,0,0,0
+            Label:
+                text: "[color=005fa9]                                                                                                                              Удаление рейса[/color]"
+                markup: True
+                font_size: 20
+                font_name: 'kv\Montserrat-Light.ttf'
+                size_hint: None, None
+                height:15
+                width:15
+                pos_hint: {"center_x": .5}
+            Image:
+                source:'kv/logo_bzhd.png'
+
+        GridLayout:
+            cols:2
+            size_hint_y:None
+            height:50
+            padding:210,25,0,0
+            spacing:10
+
+            MyField
+                id: train_numb_delete
+                hint_text: 'Номер поезда'
+                font_name: 'kv\Montserrat-Light.ttf'
+                on_text: root.set_delete_train_numb(self.text)
+
+                pos_hint: {"center_x": .50}
+
+            TooltipCheckBox:
+                tooltip_text: 'по номеру поезда'
+                group: 'delete'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 200
+                on_active: root.set_properties(self, self.active, 'train numb')
+
+        GridLayout:
+            cols: 2
+            padding:210,35,0,0
+            spacing:10
+            MyField:
+                id: start_station_delete
+                hint_text: 'Станция отправления'
+                on_text: root.set_delete_start_station(self.text)
+                pos_hint: {"center_x": .50}
+            TooltipCheckBox:
+                tooltip_text: 'по станции отправления'
+                group: 'delete'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 200
+                on_active: root.set_properties(self, self.active, 'start station')
+
+        GridLayout:
+            cols: 2
+            padding:210,25,0,0
+            spacing:10
+            MyField:
+                id: finish_station_delete
+                hint_text: 'Станция прибытия'
+                on_text: root.set_delete_finish_station(self.text)
+                pos_hint: {"center_x": .50}
+            TooltipCheckBox:
+                tooltip_text: 'по станции прибытия'
+                group: 'delete'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 200
+                on_active: root.set_properties(self, self.active, 'finish station')
+
+        GridLayout:
+            cols: 5
+            padding:40,15,0,0
+            spacing:5
+            MyField:
+                id: start_date_delete
+                hint_text: 'Дата отправления с: '
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_delete_start_date(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint: None, None
+                size: "45sp", "45sp"
+                on_press: root.choose_delete_start_date()
+                background_color:0,0,0,0
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"20sp","20sp"
+            MyField:
+                id: start_date_delete1
+                hint_text: 'по: '
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_delete_start_date1(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint: None, None
+                size: "45sp", "45sp"
+                on_press: root.choose_delete_start_date1()
+                background_color:0,0,0,0
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"20sp","20sp"
+            TooltipCheckBox:
+                tooltip_text: 'по дате отправления'
+                group: 'delete'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 60
+                on_active: root.set_properties_date(self, self.active, 'start time', 'start time1')
+
+
+        GridLayout:
+            cols: 5
+            padding:40,15,0,0
+            spacing:5
+            MyField:
+                id: finish_date_delete
+                hint_text: 'Дата прибытия с: '
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_delete_finish_date(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint: None, None
+                size: "45sp", "45sp"
+                on_press: root.choose_delete_finish_date()
+                background_color:0,0,0,0
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"20sp","20sp"
+            MyField:
+                id: finish_date_delete1
+                hint_text: 'по: '
+                helper_text: 'YYYY-MM-DD 00:00:00'
+                helper_text_mode: 'on_focus'
+                max_text_length: 19
+                on_text: root.set_delete_finish_date1(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipButton:
+                tooltip_text: 'календарь'
+                size_hint: None, None
+                size: "45sp", "45sp"
+                on_press: root.choose_delete_finish_date1()
+                background_color:0,0,0,0
+                Image:
+                    source:'kv\calendar.png'
+                    center_x:self.parent.center_x
+                    center_y:self.parent.center_y
+                    size:"20sp","20sp"
+            TooltipCheckBox:
+                tooltip_text: 'по дате прибытия'
+                group: 'delete'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 60
+                on_active: root.set_properties_date(self, self.active, 'finish time', 'finish time1')
+
+
+        GridLayout:
+            cols: 5
+            padding:40,5,0,0
+            spacing:55
+            MyField:
+                id: date_in_path_delete
+                hint_text: 'Время в пути от: '
+                helper_text: '** h(часы), ** m(минуты)'
+                helper_text_mode: 'on_focus'
+                max_text_length: 10
+                on_text: root.set_delete_date_in_path(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            MyField:
+                id: date_in_path_delete1
+                hint_text: 'до: '
+                helper_text: '** h(часы), ** m(минуты)'
+                helper_text_mode: 'on_focus'
+                max_text_length: 10
+                on_text: root.set_delete_date_in_path1(self.text)
+                multiline: False
+                pos_hint: {"center_x": .5}
+            TooltipCheckBox:
+                tooltip_text: 'по времени в пути'
+                group: 'delete'
+                color: '11436c'
+                size_hint: None, None
+                height: 40
+                width: 60
+                on_active: root.set_properties_date(self, self.active, 'time in path', 'time in path1')
+
+        GridLayout:
+            cols: 4
+            padding: 105, 10, 0, 0
+            spacing: 10
+            MDFillRoundFlatButton:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: '14sp'
+                text: '      Удаление рейса         '
+                on_press: root.delete()
+                md_bg_color: '005fa9'
+                text_color: 'ffffff'
+                pos_hint: {"center_x": .5,"center_y":.5}
+
+            MDFillRoundFlatButton:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: '14sp'
+                text: 'Вернуться в главное меню'
+                on_press: root.dismiss()
+                md_bg_color: '005fa9'
+                text_color: 'ffffff'
+                pos_hint: {"center_x": .5,"center_y":.5}
+
+<FoundPopup>
+    title: 'Результаты поиска'
+    separator_color: (0/256,95/256,169/256,1)
+    background_color: (1,1,1)
+    size_hint:None,None
+    size:(750,500)
+
+<InformationPopup@Popup>
+    title:'Информация о рейсе'
+    auto_dismiss:False
+    separator_color: (0/256,95/256,169/256,1)
+    background_color:'#005fa9'
+    size:(500,400)
+    size_hint:None,None
+
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgb: (1,1,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        orientation: "vertical"
+        adaptive_size: True
+
+        Label:
+            font_name: 'kv\Montserrat-Light.ttf'
+            text: "[color=005fa9]Информация о рейсе[/color]"
+            markup: True
+            font_size: 20
+            size_hint_y:None
+            height:30
+            spacing:20
+
+        GridLayout:
+            cols:2
+            rows:8
+            spacing: 20
+            padding:0,10,0,0
+            size_hint_y: None
+            height:260
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"[color=005fa9]Номер поезда:[/color]"
+                markup: True
+                font_size: 15
+                height:30
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                color: '000000'
+                id:train_numb
+                markup: True
+                font_size: 15
+                height:20
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"[color=005fa9]Станция отправления:[/color]"
+                markup: True
+                font_size: 15
+                height:20
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                color: '000000'
+                id:station_start
+                markup: True
+                font_size: 15
+                height:30
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"[color=005fa9]Станция прибытия:[/color]"
+                markup: True
+                font_size: 15
+                height:20
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                color: '000000'
+                id:station_finish
+                markup: True
+                font_size: 15
+                height:30
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"[color=005fa9]Дата и время отправления:[/color]"
+                markup: True
+                font_size: 15
+                height:20
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                color: '000000'
+                id:date_start
+                markup: True
+                font_size: 15
+                height:30
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"[color=005fa9]Дата и время прибытия:[/color]"
+                markup: True
+                font_size: 15
+                height:20
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                color: '000000'
+                id:date_finish
+                markup: True
+                font_size: 15
+                height:30
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"[color=005fa9]Время в пути:[/color]"
+                markup: True
+                font_size: 15
+                height:20
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                color: '000000'
+                id:date_in_path
+                markup: True
+                font_size: 15
+                height:30
+                width:30
+
+        GridLayout:
+            cols:1
+            padding:140,0,0,0
+            size_hint_y: None
+            height:50
+            MDFillRoundFlatButton:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: '14sp'
+                text: 'Вернуться в главное меню'
+                on_press: root.close_train_info_window()
+                md_bg_color: '005fa9'
+                text_color: 'ffffff'
+                pos_hint: {"center_x": .5,"center_y":.5}
+
+<MyLabel@Label>
+    pos_hint: {"center_y": .5}
+
+<HelperPopup@Popup>
+    title: 'Служба поддержки'
+    separator_color: (0/256,95/256,169/256,1)
+    background_color:'#005fa9'
+    size_hint:None,None
+    size:(400,370)
+
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgb: (1,1,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: "vertical"
+        adaptive_size: True
+
+        Label:
+            font_name: 'kv\Montserrat-Light.ttf'
+            text: "[color=005fa9]   Служба поддержки[/color]"
+            markup: True
+            font_size: 20
+            size_hint_y:None
+            height:30
+            spacing:20
+
+        GridLayout:
+            cols:2
+            rows:5
+            spacing: 30
+            padding:0,20,10,0
+            size_hint_y: None
+            height:270
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"[color=005fa9]A1:[/color]"
+                markup: True
+                font_size: 15
+                size_hint_y: None
+                height:30
+                width:30
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text: '+375-44-000-00-00'
+                color:'000000'
+                markup: True
+                font_size: 15
+                size_hint_y: None
+                height:30
+                width:30
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text: '[color=005fa9]Life:[/color]'
+                markup: True
+                font_size: 15
+                size_hint_y: None
+                height:30
+                width:30
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text: '+375-25-000-00-00'
+                color:'000000'
+                markup: True
+                font_size: 15
+                size_hint_y: None
+                height:30
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"[color=005fa9]Адрес электронной\n           почты:[/color]"
+                markup: True
+                font_size: 15
+                size_hint_y: None
+                height:30
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text: 'bzhd@mail.ru'
+                color:'000000'
+                markup: True
+                font_size: 15
+                size_hint_y: None
+                height:30
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text:"[color=005fa9]Адрес:[/color]"
+                markup: True
+                font_size: 15
+                size_hint_y: None
+                height:30
+                width:30
+
+            Label:
+                font_name: 'kv\Montserrat-Light.ttf'
+                text: 'ул.Бобруйская, д.6'
+                color:'000000'
+                markup: True
+                font_size: 15
+                size_hint_y: None
+                height:30
+                width:30
+
+<MainScreen>
+    BoxLayout:
+        orientation: "vertical"
+        adaptive_size: True
+
+        MDToolbar:
+            height:50
+            md_bg_color: 0/256,95/256,169/256,1
+            left_action_items: [['menu', lambda x : nav_drawer.set_state('open')]]
+            elevation: 8
+            pos_hint: {'top': 1, 'left': 1}
+            size_hint: 1, .1
+
+            MDNavigationDrawer:
+                id: nav_drawer
+
+                BoxLayout:
+                    canvas.before:
+                        Color:
+                            rgb: (0,0.37109375,0.66015625)
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    orientation: 'horizontal'
+
+
+                    TooltipButton:
+                        tooltip_text: 'Добавить рейс'
+                        size_hint: None, None
+                        size: "40sp", "40sp"
+                        on_press: Factory.AddPopup(root.return_controller(), root.return_model()).open()
+                        background_color:0,0,0,0
+                        Image:
+                            source:'kv\icons8-добавить-24.png'
+                            center_x:self.parent.center_x
+                            center_y:self.parent.center_y
+                            size:"35sp","35sp"
+
+                    TooltipButton:
+                        tooltip_text: 'Найти рейс'
+                        size_hint: None, None
+                        size: "40sp", "40sp"
+                        on_press: Factory.SearchPopup(root.return_controller(), root.return_model()).open()
+                        background_color:0,0,0,0
+                        Image:
+                            source:'kv\icons8-поиск-50.png'
+                            center_x:self.parent.center_x
+                            center_y:self.parent.center_y
+                            size:"30sp","30sp"
+
+                    TooltipButton:
+
+                        tooltip_text: 'Удалить рейс'
+                        size_hint: None, None
+                        size: "40sp", "40sp"
+                        on_press: Factory.DeletePopup(root.return_controller(), root.return_model()).open()
+                        background_color:0,0,0,0
+                        Image:
+                            source:'kv\icons8-мусор-30.png'
+                            center_x:self.parent.center_x
+                            center_y:self.parent.center_y
+                            size:"35sp","35sp"
+
+                    TooltipButton:
+                        tooltip_text: 'служба\nподдержки'
+                        size_hint: None, None
+                        size: "40sp", "40sp"
+                        on_press: Factory.HelperPopup().open()
+                        background_color:0,0,0,0
+                        Image:
+                            source:'kv\icons8-помощь-30.png'
+                            center_x:self.parent.center_x
+                            center_y:self.parent.center_y
+                            size:"35sp","35sp"
+
+        Label:
+            markup: True
+            pos_hint: {"center_x": .5}
+
+        GridLayout:
+            cols: 3
+            size_hint: 1, 0.3
+            spacing:10
+            padding:10,0,10,10
+            Button:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: 20
+                text: 'Добавление рейса'
+                background_color:'#005fa9'
+                background_normal:''
+                on_release: Factory.AddPopup(root.return_controller(), root.return_model()).open()
+            Button:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: 20
+                text: 'Поиск рейса'
+                background_color:'#005fa9'
+                background_normal:''
+                on_release: Factory.SearchPopup(root.return_controller(), root.return_model()).open()
+            Button:
+                font_name: 'kv\Montserrat-Light.ttf'
+                font_size: 20
+                text: 'Удаление рейса'
+                background_color:'#005fa9'
+                background_normal:''
+                on_release: Factory.DeletePopup(root.return_controller(), root.return_model()).open()
