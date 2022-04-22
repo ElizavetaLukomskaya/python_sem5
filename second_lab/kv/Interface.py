@@ -1,5 +1,6 @@
 import os
 from datetime import datetime, timedelta
+import pytimeparse
 
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
@@ -80,9 +81,18 @@ class AddPopup(Popup, Widget):
         date_dialog.bind(on_save=self.set_start_date_calendar)
         date_dialog.open()
 
+
     def set_start_date_calendar(self, instance, value, date_range):
-        self.set_date_start(str(value))
+        self.set_date_start(value)
         self.ids.start_date_input.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_start_time_calendar)
+        time_dialog.open()
+
+    def set_start_time_calendar(self, instance, value):
+        self.set_date_start(value)
+        self.ids.start_date_input.text += (' '+ str(value))
+
 
     def choose_finish_date(self):
         date_dialog = MDDatePicker(min_year=2022, max_year=2032)
@@ -92,6 +102,13 @@ class AddPopup(Popup, Widget):
     def set_finish_date_calendar(self, instance, value, date_range):
         self.set_date_finish(str(value))
         self.ids.finish_date_input.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_finish_time_calendar)
+        time_dialog.open()
+
+    def set_finish_time_calendar(self, instance, value):
+        self.set_date_finish(value)
+        self.ids.finish_date_input.text += (' '+ str(value))
 
     def dialogs(self, info):
         if info == True:
@@ -103,21 +120,15 @@ class AddPopup(Popup, Widget):
 
     def show_dialog(self):
         self.dialog = SweetAlert().fire(
-            "The record has been added!",
+            "Запись успешно добавлена!",
             type='success',
         )
 
     def show_no_dialog(self):
         self.dialog = SweetAlert().fire(
-            "ERROR",
+            "ОШИБКА!",
             type='failure',
         )
-
-    def closed(self, text):
-        self.dialog.dismiss()
-
-    def no_closed(self, text):
-        self.dialog.dismiss()
 
 
 
@@ -151,23 +162,23 @@ class SearchPopup(Popup, Widget):
     def set_search_finish_station(self, station):
         self.station_finish = str(station)
 
-    def set_search_start_date(self, date: datetime):
+    def set_search_start_date(self, date):
         self.date_start = date
 
-    def set_search_start_date1(self, date: datetime):
+    def set_search_start_date1(self, date):
         self.date_start1 = date
 
-    def set_search_finish_date(self, date: datetime):
+    def set_search_finish_date(self, date):
         self.date_finish = date
 
-    def set_search_finish_date1(self, date: datetime):
+    def set_search_finish_date1(self, date):
         self.date_finish1 = date
 
-    def set_search_date_in_path(self, date: timedelta):
-        self.date_in_path = date
+    def set_search_date_in_path(self, date):
+        self.date_in_path = pytimeparse.parse(date)
 
-    def set_search_date_in_path1(self, date: timedelta):
-        self.date_in_path1 = date
+    def set_search_date_in_path1(self, date):
+        self.date_in_path1 = pytimeparse.parse(date)
 
     def stations(self):
         values = ["Минск", "Гомель", "Могилёв", "Витебск", "Гродно", "Брест",
@@ -185,6 +196,13 @@ class SearchPopup(Popup, Widget):
     def set_start_date_calendar(self, instance, value, date_range):
         self.set_search_start_date(value)
         self.ids.start_date_search.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_start_time_calendar)
+        time_dialog.open()
+
+    def set_start_time_calendar(self, instance, value):
+        self.set_search_start_date(value)
+        self.ids.start_date_search.text += (' ' + str(value))
 
     def choose_search_start_date1(self):
         date_dialog = MDDatePicker(min_year=2022, max_year=2032)
@@ -194,6 +212,13 @@ class SearchPopup(Popup, Widget):
     def set_start_date_calendar1(self, instance, value, date_range):
         self.set_search_start_date1(value)
         self.ids.start_date_search1.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_start_time_calendar1)
+        time_dialog.open()
+
+    def set_start_time_calendar1(self, instance, value):
+        self.set_search_start_date1(value)
+        self.ids.start_date_search1.text += (' ' + str(value))
 
     def choose_search_finish_date(self):
         date_dialog = MDDatePicker(min_year=2022, max_year=2032)
@@ -203,6 +228,13 @@ class SearchPopup(Popup, Widget):
     def set_finish_date_calendar(self, instance, value, date_range):
         self.set_search_finish_date(value)
         self.ids.finish_date_search.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_finish_time_calendar)
+        time_dialog.open()
+
+    def set_finish_time_calendar(self, instance, value):
+        self.set_search_finish_date(value)
+        self.ids.finish_date_search.text += (' ' + str(value))
 
     def choose_search_finish_date1(self):
         date_dialog = MDDatePicker(min_year=2022, max_year=2032)
@@ -212,6 +244,13 @@ class SearchPopup(Popup, Widget):
     def set_finish_date_calendar1(self, instance, value, date_range):
         self.set_search_finish_date1(value)
         self.ids.finish_date_search1.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_finish_time_calendar1)
+        time_dialog.open()
+
+    def set_finish_time_calendar1(self, instance, value):
+        self.set_search_finish_date1(value)
+        self.ids.finish_date_search1.text += (' ' + str(value))
 
 
     def find_title_by_numb(self):
@@ -283,29 +322,20 @@ class SearchPopup(Popup, Widget):
 
     def empty_dialog(self):
         self.dialog = SweetAlert().fire(
-            "Please choose searching options",
+            "Необходимо выбрать параметр поиска",
             type='failure',
-            buttons=[
-                MDFlatButton(text='Ok', on_release=self.closed)
-            ]
         )
 
     def empty_input_dialog(self):
         self.dialog = SweetAlert().fire(
-            "Please enter the search data",
+            "Необходимо ввести данные для поиска",
             type='failure',
-            buttons=[
-                MDFlatButton(text='Ok', on_release=self.closed)
-            ]
         )
 
     def wrong_input_dialog(self):
         self.dialog = SweetAlert().fire(
-            "Please enter correct data",
+            "Некорректные данные",
             type='failure',
-            buttons=[
-                MDFlatButton(text='Ok', on_release=self.closed)
-            ]
         )
 
     def closed_yes(self, text):
@@ -360,10 +390,10 @@ class DeletePopup(Popup, Widget):
         self.date_finish1 = date
 
     def set_delete_date_in_path(self, date: timedelta):
-        self.date_in_path = date
+        self.date_in_path = pytimeparse.parse(date)
 
     def set_delete_date_in_path1(self, date: timedelta):
-        self.date_in_path1 = date
+        self.date_in_path1 = pytimeparse.parse(date)
 
     def stations(self):
         values = ["Минск", "Гомель", "Могилёв", "Витебск", "Гродно", "Брест",
@@ -373,7 +403,6 @@ class DeletePopup(Popup, Widget):
                         "Рогачев", "Новогрудок", "Лунинец", "Смолевичи", "Мир", "Несвиж"]
         return values
 
-
     def choose_delete_start_date(self):
         date_dialog = MDDatePicker(min_year=2022, max_year=2032)
         date_dialog.bind(on_save=self.set_start_date_calendar)
@@ -382,6 +411,13 @@ class DeletePopup(Popup, Widget):
     def set_start_date_calendar(self, instance, value, date_range):
         self.set_delete_start_date(value)
         self.ids.start_date_delete.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_start_time_calendar)
+        time_dialog.open()
+
+    def set_start_time_calendar(self, instance, value):
+        self.set_delete_start_date(value)
+        self.ids.start_date_delete.text += (' ' + str(value))
 
     def choose_delete_start_date1(self):
         date_dialog = MDDatePicker(min_year=2022, max_year=2032)
@@ -391,8 +427,14 @@ class DeletePopup(Popup, Widget):
     def set_start_date_calendar1(self, instance, value, date_range):
         self.set_delete_start_date1(value)
         self.ids.start_date_delete1.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_start_time_calendar1)
+        time_dialog.open()
 
-    # set birth date by calendar widget
+    def set_start_time_calendar1(self, instance, value):
+        self.set_delete_start_date1(value)
+        self.ids.start_date_delete1.text += (' ' + str(value))
+
     def choose_delete_finish_date(self):
         date_dialog = MDDatePicker(min_year=2022, max_year=2032)
         date_dialog.bind(on_save=self.set_finish_date_calendar)
@@ -401,6 +443,13 @@ class DeletePopup(Popup, Widget):
     def set_finish_date_calendar(self, instance, value, date_range):
         self.set_delete_finish_date(value)
         self.ids.finish_date_delete.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_finish_time_calendar)
+        time_dialog.open()
+
+    def set_finish_time_calendar(self, instance, value):
+        self.set_delete_finish_date(value)
+        self.ids.finish_date_delete.text += (' ' + str(value))
 
     def choose_delete_finish_date1(self):
         date_dialog = MDDatePicker(min_year=2022, max_year=2032)
@@ -410,6 +459,13 @@ class DeletePopup(Popup, Widget):
     def set_finish_date_calendar1(self, instance, value, date_range):
         self.set_delete_finish_date1(value)
         self.ids.finish_date_delete1.text = str(value)
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.set_finish_time_calendar1)
+        time_dialog.open()
+
+    def set_finish_time_calendar1(self, instance, value):
+        self.set_delete_finish_date1(value)
+        self.ids.finish_date_delete1.text += (' ' + str(value))
 
 
 
@@ -488,41 +544,33 @@ class DeletePopup(Popup, Widget):
 
     def show_dialog(self, count):
             self.dialog = SweetAlert().fire(
-                f"Deleted {count} records",
+                f"Удалено записей: {count}",
                 type='success',
             )
 
     def empty_dialog(self):
         self.dialog = SweetAlert().fire(
-            "Please choose delete options",
+            "Необходимо выбрать параметр удаления",
             type='failure',
         )
 
     def show_none_dialog(self):
             self.dialog = SweetAlert().fire(
-                "No records have been deleted!",
+                "Нет рейсов с данными параметрами",
                 type='failure',
             )
 
     def empty_input_dialog(self):
         self.dialog = SweetAlert().fire(
-            "Please enter delete data",
+            "Введите данные для удаления",
             type='failure',
         )
 
     def wrong_input_dialog(self):
         self.dialog = SweetAlert().fire(
-            "Please enter correct data",
+            "Некорректные данные",
             type='failure',
         )
-
-
-    def closed(self, text):
-        self.dialog.dismiss()
-
-    def closed_empty(self, text):
-        self.options = []
-        self.dialog.dismiss()
 
 
 class FoundPopup(Popup, Widget):
@@ -533,6 +581,7 @@ class FoundPopup(Popup, Widget):
 
         self.table = MDDataTable(
                                  use_pagination=True,
+                                 rows_num=10,
                                  column_data=[
                                      ("[font=kv\Montserrat-Light]Номер поезда[/font]", dp(30)),
                                      ("[font=kv\Montserrat-Light]Станция отправления[/font]", dp(30)),
@@ -559,6 +608,7 @@ class FoundPopup(Popup, Widget):
         self.table = MDDataTable(pos_hint={'center_y': 0.58, 'center_x': 0.5},
                                  use_pagination=True,
                                  check=True,
+                                 rows_num=10,
                                  column_data=[
                                      ("[font=kv\Montserrat-Light]Номер поезда[/font]", dp(30)),
                                      ("[font=kv\Montserrat-Light]Станция отправления[/font]", dp(30)),
@@ -642,6 +692,7 @@ class MainScreen(MDScreen):
         self.table = MDDataTable(pos_hint={'center_y': 0.58, 'center_x': 0.5},
                                  use_pagination=True,
                                  check = True,
+                                 rows_num=10,
                                  column_data=[
                                      ("[font=kv\Montserrat-Light]Номер поезда[/font]", dp(30)),
                                      ("[font=kv\Montserrat-Light]Станция отправления[/font]", dp(30)),
@@ -690,6 +741,7 @@ class MainScreen(MDScreen):
         self.table = MDDataTable(pos_hint={'center_y': 0.58, 'center_x': 0.5},
                                  use_pagination=True,
                                  check = True,
+                                 rows_num=10,
                                  column_data=[
                                      ("[font=kv\Montserrat-Light]Номер поезда[/font]", dp(30)),
                                      ("[font=kv\Montserrat-Light]Станция отправления[/font]", dp(30)),
@@ -720,13 +772,15 @@ class MainScreen(MDScreen):
         self.table = MDDataTable(pos_hint={'center_y': 0.58, 'center_x': 0.5},
                                  use_pagination=True,
                                  check = True,
+                                 #rows_num= 10,
                                  column_data=[
                                      ("[font=kv\Montserrat-Light]Номер поезда[/font]", dp(30)),
                                      ("[font=kv\Montserrat-Light]Станция отправления[/font]", dp(30)),
                                      ("[font=kv\Montserrat-Light]Станция \nприбытия[/font]", dp(30)),
                                      ("[font=kv\Montserrat-Light]Дата и время отправления[/font]", dp(50)),
                                      ("[font=kv\Montserrat-Light]Дата и время прибытия[/font]", dp(50)),
-                                     ("[font=kv\Montserrat-Light]Время в пути[/font]", dp(40))], size_hint=(1, 0.7),
+                                     ("[font=kv\Montserrat-Light]Время в пути[/font]", dp(40))],
+                                 size_hint=(1, 0.7),
                                  row_data=self.add_table_data_added(train_list))
 
         self.table.bind(on_check_press=self.check_info)
