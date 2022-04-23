@@ -1,5 +1,5 @@
 import pygame.gfxdraw
-
+import toolbox
 import enemy
 import image_util
 from player import Player
@@ -8,7 +8,7 @@ from projectile import Bullet
 from score_manager import ScoreManager, Background
 from wave_controller import WaveController
 
-WIDTH = 1000
+WIDTH = 800
 HEIGHT = 600
 FPS = 60
 
@@ -19,13 +19,81 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 
-
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Crimsoland")
 clock = pygame.time.Clock()
 
-background_image = pygame.image.load(image_util.getImage("landscape.png")).convert()
+class Button:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.inact_clr = (15, 15, 15)
+
+    def draw(self, x, y, message, action=None, font_size=30):
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+
+        print_text(message=message, x=x + 5, y=y + 5, font_clr=(255, 255, 255), font_size=font_size)
+        if x < mouse[0] < x + self.width:
+            if y < mouse[1] < y + self.height:
+                pygame.draw.rect(screen, self.inact_clr, (x, y, self.width, self.height))
+                print_text(message=message, x=x + 5, y=y + 5, font_clr=(123, 22, 12), font_size=font_size)
+                if click[0] == 1:
+                    toolbox.playSound('button.wav')
+                    pygame.time.delay(300)
+                    if action is not None:
+                        action()
+
+        else:
+            pygame.draw.rect(screen, self.inact_clr, (x, y, self.width, self.height))
+            print_text(message=message, x=x + 5, y=y + 5, font_clr=(255,255,255), font_size=font_size)
+
+def print_text(message, x, y, font_clr = (0,0,0), font_type = 'RequestPersonalUse.otf', font_size = 30):
+    font_type = pygame.font.Font(font_type, font_size)
+    text = font_type.render(message, True, font_clr)
+    screen.blit(text, (x,y))
+
+def pause():
+    paused = True
+    pause_bg = pygame.image.load(image_util.getImage('land.jpg'))
+    while paused:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        screen.blit(pause_bg, (0,0))
+        print_text('Paused! press ENTER to continue', 110, 280, font_clr=(WHITE), font_size=20)
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RETURN]:
+            paused = False
+
+        pygame.display.update()
+        clock.tick(15)
+
+def show_menu():
+    menu_bg = pygame.image.load(image_util.getImage('crimsonland_menu.jpg'))
+
+    menu = True
+
+    start_btn = Button(125, 25)
+
+    while menu:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        screen.blit(menu_bg, (0,0))
+        start_btn.draw(220, 213, 'Start game', None, 10)
+
+        pygame.display.update()
+        clock.tick(60)
+
+
+
+
+background_image = pygame.image.load(image_util.getImage("land.jpg")).convert()
 
 playerGroup = pygame.sprite.Group()
 projectilesGroup = pygame.sprite.Group()
@@ -47,29 +115,22 @@ pygame.mixer.music.play(-1)
 font = pygame.font.SysFont('Bodoni 72 Book', 60)
 running = True
 
+button = Button(100, 100)
+
+# show_menu()
+
 while running:
     clock.tick(FPS)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            running = False
+        # if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+        #     running = False
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_w] and keys[pygame.K_a]:
-        Background.display_scroll[0] -= mr_player.speed / 1.4
-        Background.display_scroll[1] -= mr_player.speed / 1.4
-        for projectile in projectilesGroup:
-            projectile.x += mr_player.speed / 1.4
-            projectile.y += mr_player.speed / 1.4
-
-    elif keys[pygame.K_w] and keys[pygame.K_d]:
-        Background.display_scroll[0] += mr_player.speed / 1.4
-        Background.display_scroll[1] -= mr_player.speed / 1.4
-        for projectile in projectilesGroup:
-            projectile.x -= mr_player.speed / 1.4
-            projectile.y += mr_player.speed / 1.4
+    if keys[pygame.K_ESCAPE]:
+        pause()
 
     elif keys[pygame.K_s] and keys[pygame.K_a]:
         Background.display_scroll[0] -= mr_player.speed / 1.4
@@ -143,7 +204,7 @@ while running:
     screen.blit(score_text, (10, 10))
 
     wave_text = font.render("Wave: " + str(wave_controller.wave_number), True, (255, 255, 255))
-    screen.blit(wave_text, (800, 10))
+    screen.blit(wave_text, (600, 10))
 
     pygame.display.flip()
 
