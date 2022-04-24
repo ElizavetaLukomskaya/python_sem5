@@ -24,6 +24,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Crimsoland")
 clock = pygame.time.Clock()
 
+
 class Button:
     def __init__(self, width, height):
         self.width = width
@@ -43,7 +44,11 @@ class Button:
                     toolbox.playSound('button.wav')
                     pygame.time.delay(300)
                     if action is not None:
-                        action()
+                        if action == quit():
+                            pygame.quit()
+                            quit()
+                        else:
+                            action()
 
         else:
             pygame.draw.rect(screen, self.inact_clr, (x, y, self.width, self.height))
@@ -76,7 +81,14 @@ def show_menu():
 
     menu = True
 
-    start_btn = Button(125, 25)
+    menu_btn = Button(125, 25)
+
+    pygame.mouse.set_visible(False)
+    cursor_img = pygame.image.load(image_util.getImage('cursor.png'))
+    cursor_rect = cursor_img.get_rect()
+
+    pygame.mixer.music.load(image_util.getImage('menu.mp3'))
+    pygame.mixer.music.play(-1)
 
     while menu:
         for event in pygame.event.get():
@@ -84,8 +96,15 @@ def show_menu():
                 pygame.quit()
                 quit()
 
+        cursor_rect.topleft = pygame.mouse.get_pos()
         screen.blit(menu_bg, (0,0))
-        start_btn.draw(220, 213, 'Start game', None, 10)
+        menu_btn.draw(220, 213, 'Start game', None, 10)
+        menu_btn.draw(203, 274, 'Saved games', None, 9)
+        menu_btn.draw(182, 333, 'Rating', None, 10)
+        menu_btn.draw(161, 394, 'Options', None, 10)
+        menu_btn.draw(140, 453, 'Quit', quit, 10)
+        screen.blit(cursor_img, cursor_rect)
+
 
         pygame.display.update()
         clock.tick(60)
@@ -109,18 +128,20 @@ PowerUp.containers = powerGroup
 mr_player = Player(screen, WIDTH/2, HEIGHT/2)
 wave_controller = WaveController(screen, WIDTH, HEIGHT, enemiesGroup)
 
-pygame.mixer.music.load(image_util.getImage('Main_Theme.wav'))
-pygame.mixer.music.play(-1)
 
 font = pygame.font.SysFont('Bodoni 72 Book', 60)
 running = True
 
 button = Button(100, 100)
 
-# show_menu()
+show_menu()
+
+pygame.mixer.music.load(image_util.getImage('Main_Theme.wav'))
+pygame.mixer.music.play(-1)
 
 while running:
     clock.tick(FPS)
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
