@@ -54,6 +54,8 @@ class Button:
             pygame.draw.rect(screen, self.inact_clr, (x, y, self.width, self.height))
             print_text(message=message, x=x + 5, y=y + 5, font_clr=(255,255,255), font_size=font_size)
 
+
+
 def print_text(message, x, y, font_clr = (0,0,0), font_type = 'RequestPersonalUse.otf', font_size = 30):
     font_type = pygame.font.Font(font_type, font_size)
     text = font_type.render(message, True, font_clr)
@@ -90,21 +92,39 @@ def show_menu():
     pygame.mixer.music.load(image_util.getImage('menu.mp3'))
     pygame.mixer.music.play(-1)
 
+    need_input = False
+    input_text = ''
+
     while menu:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            if need_input and event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    need_input = False
+                    input_text = ''
+                elif event.key == pygame.K_BACKSPACE:
+                    input_text = input_text[:-1]
+                else:
+                    if len(input_text) < 15:
+                        input_text += event.unicode
+
 
         cursor_rect.topleft = pygame.mouse.get_pos()
         screen.blit(menu_bg, (0,0))
         menu_btn.draw(220, 213, 'Start game', None, 10)
-        menu_btn.draw(203, 274, 'Saved games', None, 9)
-        menu_btn.draw(182, 333, 'Rating', None, 10)
+        menu_btn.draw(203, 274, 'Rating', None, 10)
+        menu_btn.draw(182, 333, 'About game', None, 10)
         menu_btn.draw(161, 394, 'Options', None, 10)
         menu_btn.draw(140, 453, 'Quit', quit, 10)
         screen.blit(cursor_img, cursor_rect)
 
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_TAB]:
+            need_input = True
+
+        print_text(input_text, 100, 100)
 
         pygame.display.update()
         clock.tick(60)
