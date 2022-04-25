@@ -32,7 +32,6 @@ class Player(pygame.sprite.Sprite):
     def update(self, enemies, powers):
         self.rect.center = (self.x, self.y)
 
-
         for enemy in enemies:
             if self.rect.colliderect(enemy.rect):
                 enemy.getHit(0)
@@ -62,17 +61,17 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(image_to_draw, image_rect)
 
 
-        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 26, 0, 359, (255, 255, 255, 150))
-        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 25, 0, 359, (255, 255, 255, 150))
-        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 24, 0, 359, (255, 255, 255, 150))
-        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 23, 0, 359, (255, 255, 255, 150))
+        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 26, -90, 269, (255, 255, 255, 150))
+        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 25, -90, 269, (255, 255, 255, 150))
+        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 24, -90, 269, (255, 255, 255, 150))
+        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 23, -90, 269, (255, 255, 255, 150))
 
         health_percentage = int(self.health / self.health_max * 359)
 
-        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 26, 0, health_percentage, (0, 0, 255, 180))
-        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 25, 0, health_percentage, (0, 0, 255, 180))
-        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 24, 0, health_percentage, (0, 0, 255, 180))
-        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 23, 0, health_percentage, (0, 0, 255, 180))
+        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 26, -90, health_percentage - 90, (0, 0, 255, 180))
+        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 25, -90, health_percentage - 90, (0, 0, 255, 180))
+        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 24, -90, health_percentage - 90, (0, 0, 255, 180))
+        pygame.gfxdraw.arc(self.screen, int(self.x), int(self.y), 23, -90, health_percentage - 90, (0, 0, 255, 180))
 
 
     def move (self, x_movement, y_movement):

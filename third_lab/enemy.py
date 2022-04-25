@@ -1,9 +1,10 @@
 import pygame
 import math
 import toolbox
-from score_manager import ScoreManager, Background
+from manager import ScoreManager, Background
 import image_util
 import random, power
+import projectile
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -27,14 +28,16 @@ class Enemy(pygame.sprite.Sprite):
         self.damage = 10
         self.hurtTimer = 0
 
+
         self.reset_offset = 0
         self.offset_x = random.randrange(-350, 350)
         self.offset_y = random.randrange(-350, 350)
 
     def update(self, projectiles, powers):
+
         self.angle = toolbox.angleBetweenPoints(self.x, self.y, self.target.x, self.target.y)
         angle_rads = math.radians(self.angle)
-        
+
         self.x_move = (math.cos(angle_rads) / 5) * self.speed
         self.y_move = -(math.sin(angle_rads) / 5) * self.speed
         # self.x += self.x_move
@@ -89,7 +92,6 @@ class Enemy(pygame.sprite.Sprite):
 
             toolbox.playSound('point.wav')
             ScoreManager.score += int(self.max_health/5)
-
 
 class Brute(Enemy):
     def __init__(self, screen, x, y, target):

@@ -6,7 +6,7 @@ class WaveController:
         self.wave_number = 0
         self.screen = screen
         self.groups = groups
-        self.amount = 9
+        self.amount = 10
         self.maxX = maxX
         self.maxY = maxY
 
