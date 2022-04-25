@@ -1,8 +1,7 @@
 import pygame
-import toolbox
 import random
 import image_util
-from score_manager import Background
+from manager import Background
 
 class PowerUp(pygame.sprite.Sprite):
     def __init__(self, screen, center):
@@ -13,7 +12,6 @@ class PowerUp(pygame.sprite.Sprite):
         self.y = center[1]
 
         self.type = random.choice(['health_point', 'reload', 'speed'])
-
 
         self.powerup_images = {'health_point': pygame.image.load(image_util.getImage("pill_red.png")).convert(),
                                'reload': pygame.image.load(image_util.getImage("reload.png")).convert(),
