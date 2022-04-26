@@ -1,19 +1,6 @@
-'''
-НАДО СДЕЛАТЬ:
-
-1) Запуск игры одной функцией
-2) Настроить карту так, чтобы можно было ходить до конца картинки
-3) Сделать конфиги
-
-все остальное скинуть на егора(а именно: исправить всех врагов, добавить оружие с нормальным боеприпасом и тд)
-'''
-from game import Game
+from play_loop import show_menu
 import pygame
 
-game = Game()
-
 if __name__ == '__main__':
-    print('START GAME')
-    game.start_game()
+    show_menu()
 pygame.quit()
-
