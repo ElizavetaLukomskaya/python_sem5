@@ -1,6 +1,4 @@
-import pygame
-import random
-import enemy
+import  pygame, random, enemy
 from manager import Background
 
 class Wave:
@@ -17,17 +15,17 @@ class Wave:
             a = random.randint(0, 1)
             b = random.randint(0, 1)
             if a and b:
-                x = random.randint(-100 - Background.display_scroll[0], 0- Background.display_scroll[0])
-                y = random.randint(-100- Background.display_scroll[1], self.maxY+100 - Background.display_scroll[1])
+                x = random.randint(-100 - int(Background.display_scroll[0]), 0 - int(Background.display_scroll[0]))
+                y = random.randint(-100 - int(Background.display_scroll[1]), self.maxY + 100 - int(Background.display_scroll[1]))
             if a and not b:
-                x = random.randint(self.posX- Background.display_scroll[0], self.posX + 100- Background.display_scroll[0])
-                y = random.randint(-100- Background.display_scroll[1], self.maxY+100 - Background.display_scroll[1])
+                x = random.randint(self.posX- int(Background.display_scroll[0]), self.posX + 100- int(Background.display_scroll[0]))
+                y = random.randint(-100- int(Background.display_scroll[1]), self.maxY+100 - int(Background.display_scroll[1]))
             if b and not a:
-                x = random.randint(-100- Background.display_scroll[0], self.posX + 100- Background.display_scroll[0])
-                y = random.randint(-100- Background.display_scroll[1], 0- Background.display_scroll[1])
+                x = random.randint(-100- int(Background.display_scroll[0]), self.posX + 100- int(Background.display_scroll[0]))
+                y = random.randint(-100- int(Background.display_scroll[1]), 0- int(Background.display_scroll[1]))
             if not a and not b:
-                x = random.randint(-100- Background.display_scroll[0], self.posX + 100- Background.display_scroll[0])
-                y = random.randint(self.maxY- Background.display_scroll[1], self.maxY+100- Background.display_scroll[1])
+                x = random.randint(-100- int(Background.display_scroll[0]), self.posX + 100- int(Background.display_scroll[0]))
+                y = random.randint(self.maxY- int(Background.display_scroll[1]), self.maxY+100- int(Background.display_scroll[1]))
 
 
             index = random.randint(0, len(self.enemies) - 1)
