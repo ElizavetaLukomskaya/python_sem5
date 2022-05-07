@@ -5,6 +5,9 @@ from player import Player
 from power import PowerUp
 from projectile import Bullet
 from wave_controller import WaveController
+from blood import Blood
+from save import *
+from rating import Rating
 
 WIDTH = 800
 HEIGHT = 600
@@ -22,17 +25,24 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Crimsoland")
 clock = pygame.time.Clock()
 
+save_data = Save()
+r_table = Rating(save_data.get('rating'))
+#save_data.add('rating', {})
+
 background_image = pygame.image.load(image_util.getImage("land.png")).convert()
+background_image = pygame.transform.scale(background_image, (1600, 1200))
 
 playerGroup = pygame.sprite.Group()
 projectilesGroup = pygame.sprite.Group()
 enemiesGroup = pygame.sprite.Group()
 powerGroup = pygame.sprite.Group()
+bloodGroup = pygame.sprite.Group()
 
 Player.containers = playerGroup
 Bullet.containers = projectilesGroup
 enemy.Enemy.containers = enemiesGroup
 PowerUp.containers = powerGroup
+Blood.containers = bloodGroup
 
 mr_player = Player(screen, WIDTH / 2, HEIGHT / 2)
 wave_controller = WaveController(screen, WIDTH, HEIGHT, enemiesGroup)
