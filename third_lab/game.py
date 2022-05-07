@@ -37,9 +37,4 @@ PowerUp.containers = powerGroup
 mr_player = Player(screen, WIDTH / 2, HEIGHT / 2)
 wave_controller = WaveController(screen, WIDTH, HEIGHT, enemiesGroup)
 
-
 font = pygame.font.SysFont('Bodoni 72 Book', 60)
-
-
-
-

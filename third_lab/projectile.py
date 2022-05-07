@@ -4,7 +4,7 @@ import math
 import image_util
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, screen, x, y, angle):
+    def __init__(self, screen, x, y, angle, damage, speed):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.screen = screen
         self.x = x
@@ -14,11 +14,11 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
         self.image, self.rect = toolbox.getRotatedImage(self.image, self.rect, self.angle)
-        self.speed = 10
+        self.speed = speed
         self.angle_rads = math.radians(self.angle)
         self.x_move = math.cos(self.angle_rads) * self.speed
         self.y_move = -math.sin(self.angle_rads) * self.speed
-        self.damage = 20
+        self.damage = damage
 
     def update(self):
         self.x += self.x_move
