@@ -11,12 +11,11 @@ class PowerUp(pygame.sprite.Sprite):
         self.x = center[0]
         self.y = center[1]
 
-        self.type = random.choice(['health_point', 'reload', 'speed', 'reload'])
+        self.type = random.choice(['health_point', 'reload', 'speed'])
 
         self.powerup_images = {'health_point': pygame.image.load(image_util.getImage("pill_red.png")).convert(),
-                               'shoot': pygame.image.load(image_util.getImage("shoot.png")).convert(),
-                               'speed': pygame.image.load(image_util.getImage('bolt_gold.png')).convert(),
-                               'reload': pygame.transform.scale(pygame.image.load(image_util.getImage('reload.png')).convert(), (25, 25))}
+                               'reload': pygame.image.load(image_util.getImage("reload.png")).convert(),
+                               'speed': pygame.image.load(image_util.getImage('bolt_gold.png')).convert()}
 
         self.image = self.powerup_images[self.type]
         self.image.set_colorkey((0, 0, 0))
@@ -30,11 +29,9 @@ class PowerUp(pygame.sprite.Sprite):
         self.kill_timer = 300
         self.reload_timer = 240
         self.speed_timer = 240
-        self.shoot_timer = 240
 
         self.r_flag = False
         self.s_flag = False
-        self.sh_flag = False
 
     def update(self, player):
 
@@ -49,16 +46,8 @@ class PowerUp(pygame.sprite.Sprite):
             if self.speed_timer >= 0:
                 self.speed_timer -= 1
             else:
-                self.up_speed(player, False)
+                self.up_reload(player, False)
                 self.kill()
-
-        elif self.sh_flag:
-            if self.shoot_timer >= 0:
-                self.shoot_timer -= 1
-            else:
-                self.up_shoot(player, True)
-                self.kill()
-
         else:
             self.rect.center = [self.x - Background.display_scroll[0], self.y - Background.display_scroll[1]]
             if self.kill_timer >= 0:
@@ -76,19 +65,12 @@ class PowerUp(pygame.sprite.Sprite):
 
         self.explode()
 
-    def up_shoot(self, player, flag):
-        buffer = player.player_weapon.start_shoot_cd
-        if not flag:
-            player.player_weapon.shoot_cooldown_max -= int(0.2 * buffer)
-        else:
-            player.player_weapon.shoot_cooldown_max += int(0.2 * buffer)
-
     def up_reload(self, player, flag):
-        buffer = player.player_weapon.start_reload_cd
+        buffer = player.start_shoot_cd
         if not flag:
-            player.player_weapon.reload_cooldown_max -= int(0.15 * buffer)
+            player.shoot_cooldown_max -= int(0.2 * buffer)
         else:
-            player.player_weapon.reload_cooldown_max += int(0.15 * buffer)
+            player.shoot_cooldown_max += int(0.2 * buffer)
 
     def up_speed(self, player, flag):
         buffer = player.start_speed
