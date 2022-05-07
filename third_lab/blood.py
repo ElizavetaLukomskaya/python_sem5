@@ -22,4 +22,3 @@ class Blood(pygame.sprite.Sprite):
         self.screen.blit(image_to_draw, image_rect)
 
 
-

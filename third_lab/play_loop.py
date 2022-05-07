@@ -380,4 +380,3 @@ def play_loop(screen, clock, FPS, mr_player, projectilesGroup, enemiesGroup, pow
         screen.blit(cursor_img, cursor_rect)
 
         pygame.display.flip()
-

@@ -72,4 +72,3 @@ def pause():
 
         pygame.display.update()
         game.clock.tick(15)
-
