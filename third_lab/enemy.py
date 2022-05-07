@@ -3,7 +3,7 @@ import math
 import toolbox
 from manager import ScoreManager, Background
 import image_util
-import random, power, weapon
+import random, power
 import projectile
 
 
@@ -28,82 +28,63 @@ class Enemy(pygame.sprite.Sprite):
         self.damage = 10
         self.hurtTimer = 0
 
-        self.hit = False
-        self.alive = True
 
         self.reset_offset = 0
         self.offset_x = random.randrange(-350, 350)
         self.offset_y = random.randrange(-350, 350)
 
     def update(self, projectiles, powers):
-        if self.alive:
-            self.angle = toolbox.angleBetweenPoints(self.x, self.y, self.target.x, self.target.y)
-            angle_rads = math.radians(self.angle)
 
-            self.x_move = (math.cos(angle_rads)) * self.speed
-            self.y_move = -(math.sin(angle_rads)) * self.speed
+        self.angle = toolbox.angleBetweenPoints(self.x, self.y, self.target.x, self.target.y)
+        angle_rads = math.radians(self.angle)
 
-            self.rect.center = [self.x - Background.display_scroll[0], self.y - Background.display_scroll[1]]
-            self.image = self.normalImage
+        self.x_move = (math.cos(angle_rads) / 5) * self.speed
+        self.y_move = -(math.sin(angle_rads) / 5) * self.speed
+        # self.x += self.x_move
+        # self.y += self.y_moves
+        self.rect.center = [self.x - Background.display_scroll[0], self.y - Background.display_scroll[1]]
+        self.image = self.normalImage
 
-            if self.reset_offset == 0:
-                self.offset_x = random.randrange(-350, 350)
-                self.offset_y = random.randrange(-350, 350)
-                self.reset_offset = random.randrange(130, 150)
-            else:
-                self.reset_offset -= 1
 
-            if self.target.x + self.offset_x > self.x - Background.display_scroll[0]:
-                self.x += 1
-            elif self.target.x + self.offset_x < self.x - Background.display_scroll[0]:
-                self.x -= 1
-
-            if self.target.y + self.offset_y > self.y - Background.display_scroll[1]:
-                self.y += 1
-            elif self.target.y + self.offset_y < self.y - Background.display_scroll[1]:
-                self.y -= 1
-
-            for projectile in projectiles:
-                if self.target.player_weapon.type == 'snipe':
-                    if not self.hit:
-                        if self.rect.colliderect(projectile.rect):
-                            self.get_hit(projectile.damage)
-                            self.hit = True
-                    if self.hit:
-                        if not self.rect.colliderect(projectile.rect):
-                            self.hit = False
-
-                if self.target.player_weapon.type != 'snipe':
-                    if self.rect.colliderect(projectile.rect):
-                        self.get_hit(projectile.damage)
-                        projectile.explode()
-
-            if self.hurtTimer <= 0:
-                imageToRotate = self.image
-            else:
-                imageToRotate = self.hurtImage
-                self.hurtTimer -= 1
-
-            image_to_draw, image_rect = toolbox.getRotatedImage(imageToRotate, self.rect, self.angle)
-            self.screen.blit(image_to_draw, image_rect)
+        if self.reset_offset == 0:
+            self.offset_x = random.randrange(-350, 350)
+            self.offset_y = random.randrange(-350, 350)
+            self.reset_offset = random.randrange(130, 150)
         else:
-            self.dead()
-            self.rect.center = [self.x-Background.display_scroll[0], self.y-Background.display_scroll[1]]
-            image_to_draw, image_rect = toolbox.getRotatedImage(self.image, self.rect, self.angle)
-            self.screen.blit(image_to_draw, image_rect)
+            self.reset_offset -= 1
 
+        if self.target.x + self.offset_x > self.x - Background.display_scroll[0]:
+            self.x += 1
+        elif self.target.x + self.offset_x < self.x - Background.display_scroll[0]:
+            self.x -= 1
 
-    def get_hit(self, damage):
+        if self.target.y + self.offset_y > self.y - Background.display_scroll[1]:
+            self.y += 1
+        elif self.target.y + self.offset_y < self.y - Background.display_scroll[1]:
+            self.y -= 1
+
+        for projectile in projectiles:
+            if self.rect.colliderect(projectile.rect):
+                self.getHit(projectile.damage)
+                projectile.explode()
+
+        if self.hurtTimer <= 0:
+            imageToRotate = self.image
+        else:
+            imageToRotate = self.hurtImage
+            self.hurtTimer -= 1
+
+        image_to_draw, image_rect = toolbox.getRotatedImage(imageToRotate, self.rect, self.angle)
+        self.screen.blit(image_to_draw, image_rect)
+
+    def getHit(self, damage):
         if damage:
             toolbox.playSound('hit.wav')
             self.hurtTimer = 5
-
         self.x -= self.x_move * 10
         self.y -= self.y_move * 10
         self.health -= damage
-
         if self.health <= 0:
-            self.alive = False
             self.kill()
 
             if random.random() > .75:
@@ -111,13 +92,6 @@ class Enemy(pygame.sprite.Sprite):
 
             toolbox.playSound('point.wav')
             ScoreManager.score += int(self.max_health/5)
-
-    def dead(self):
-        self.image = pygame.image.load(image_util.getImage("blood.png")).convert()
-        self.image.set_colorkey((0,0,0))
-        self.rect = self.image.get_rect()
-
-
 
 class Brute(Enemy):
     def __init__(self, screen, x, y, target):
