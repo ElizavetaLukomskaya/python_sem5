@@ -7,7 +7,7 @@ img_dir = path.join(path.dirname(__file__), 'img')
 snd_dir = path.join(path.dirname(__file__), 'snd')
 
 WIDTH = 1400
-HEIGHT = 800
+HEIGHT = 780
 FPS = 60
 POWERUP_TIME = 3500
 
@@ -25,8 +25,8 @@ clock = pygame.time.Clock()
 def position(x, y, z, plain):
     start = (plain.rect.left + 30, plain.rect.top +30)
 
-    x1 = start[0] + 50*x
-    y1 = start[1] + 50*y
+    x1 = start[0] + 60*x
+    y1 = start[1] + 60*y
 
     if z == 0:
         x1 -= 15
@@ -46,12 +46,12 @@ def position(x, y, z, plain):
 
 class Plain(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        # x = 22, y = 16
+        # x_max = 19, y_max = 12
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50*x, 50*y))
         self.image = pygame.image.load("transparant.png")
+        self.image = pygame.transform.scale(self.image, (60*x, 60*y))
         self.rect = self.image.get_rect()
-        self.rect.center = (30, 30)
+        self.rect.center = (WIDTH/2-100, HEIGHT/2)
 
     def update(self):
         pass
