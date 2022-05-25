@@ -320,24 +320,46 @@ def game():
     clock = pygame.time.Clock()
     all_sprites = pygame.sprite.Group()
 
-    x_p = 21
-    y_p = 16
+    #max_x_for_plain = 19
+    #max_y_dor_plain = 12
+
+    x_p = 19
+    y_p = 12
 
     pl = Plain(x_p, y_p)
     all_sprites.add(pl)
 
     an = []
-    an.append(Animal(1, 1, 0, 'p', pl))
+
+    #max_x_for_animals = max_x_for_plain - 1
+    #max_y_dor_animals = max_y_for_plain - 1
+
+    an.append(Animal(0, 0, 0, 'p', pl))
+    an.append(Animal(0, 1, 0, 'p', pl))
+    an.append(Animal(0, 2, 0, 'p', pl))
+    an.append(Animal(0, 3, 0, 'p', pl))
+    an.append(Animal(0, 4, 0, 'p', pl))
+    an.append(Animal(0, 5, 0, 'p', pl))
+
+    an.append(Animal(0, 6, 0, 'p', pl))
+    an.append(Animal(0, 7, 0, 'p', pl))
+    an.append(Animal(0, 8, 0, 'p', pl))
+    an.append(Animal(0, 9, 0, 'p', pl))
+    an.append(Animal(0, 10, 0, 'p', pl))
+    an.append(Animal(0, 11, 0, 'p', pl))
+
+
+
     an.append(Animal(2, 6, 3, 'r', pl))
     an.append(Animal(3, 7, 3, 'r', pl, sex='Female'))
     an.append(Animal(4, 6, 2, 's', pl))
-    an.append(Animal(3, 10, 2, 's', pl, sex='Female'))
+    an.append(Animal(3, 10, 2, 's', pl, sex='Male'))
     an.append(Animal(5, 6, 2, 'w', pl))
     an.append(Animal(6, 10, 2, 'w', pl, sex='Female'))
     an.append(Animal(7, 6, 2, 'd', pl))
-    an.append(Animal(8, 15, 2, 'd', pl, sex='Female'))
+    an.append(Animal(8, 11, 2, 'd', pl, sex='Female'))
     an.append(Animal(9, 6, 2, 'b', pl))
-    an.append(Animal(22, 10, 2, 'b', pl, sex='Female'))
+    an.append(Animal(18, 11, 3, 'b', pl, sex='Female'))
 
     all_sprites.add(an)
 
