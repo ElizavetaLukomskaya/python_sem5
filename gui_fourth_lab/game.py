@@ -3,7 +3,7 @@ import random
 from os import path
 import pygame
 
-from plain import *
+
 
 
 

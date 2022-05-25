@@ -308,83 +308,11 @@ def preset():
             meadow.tick()
             move_count += 1
 
+
+
 @app.command()
 def game():
-    pygame.init()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("LAB4")
-
-    bg = pygame.image.load("grass.png")
-    bg = pygame.transform.scale(bg, (1700, 1200))
-
-    clock = pygame.time.Clock()
-    all_sprites = pygame.sprite.Group()
-
-    #max_x_for_plain = 19
-    #max_y_dor_plain = 12
-
-    x_p = 19
-    y_p = 12
-
-    pl = Plain(x_p, y_p)
-    all_sprites.add(pl)
-
-    an = []
-
-    #max_x_for_animals = max_x_for_plain - 1
-    #max_y_dor_animals = max_y_for_plain - 1
-
-    an.append(Animal(0, 0, 0, 'p', pl))
-    an.append(Animal(0, 1, 0, 'p', pl))
-    an.append(Animal(0, 2, 0, 'p', pl))
-    an.append(Animal(0, 3, 0, 'p', pl))
-    an.append(Animal(0, 4, 0, 'p', pl))
-    an.append(Animal(0, 5, 0, 'p', pl))
-
-    an.append(Animal(0, 6, 0, 'p', pl))
-    an.append(Animal(0, 7, 0, 'p', pl))
-    an.append(Animal(0, 8, 0, 'p', pl))
-    an.append(Animal(0, 9, 0, 'p', pl))
-    an.append(Animal(0, 10, 0, 'p', pl))
-    an.append(Animal(0, 11, 0, 'p', pl))
-
-
-
-    an.append(Animal(2, 6, 3, 'r', pl))
-    an.append(Animal(3, 7, 3, 'r', pl, sex='Female'))
-    an.append(Animal(4, 6, 2, 's', pl))
-    an.append(Animal(3, 10, 2, 's', pl, sex='Male'))
-    an.append(Animal(5, 6, 2, 'w', pl))
-    an.append(Animal(6, 10, 2, 'w', pl, sex='Female'))
-    an.append(Animal(7, 6, 2, 'd', pl))
-    an.append(Animal(8, 11, 2, 'd', pl, sex='Female'))
-    an.append(Animal(9, 6, 2, 'b', pl))
-    an.append(Animal(18, 11, 3, 'b', pl, sex='Female'))
-
-    all_sprites.add(an)
-
-    running = True
-
-    while running:
-        clock.tick(60)
-
-        screen.blit(bg, (0,0))
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-        for i in range(len(an)):
-            an[i].animate()
-
-        all_sprites.update()
-
-
-        all_sprites.draw(screen)
-
-        pygame.display.flip()
-
-    pygame.quit()
+    show_menu()
 
 if __name__ == "__main__":
     app()
